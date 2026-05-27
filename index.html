@@ -568,7 +568,9 @@
             const luongCoBan = parseInt(luongCoBanStr, 10);
             
             // Tính toán tổng lương thực nhận
-            const tongLuongThang = totalCongThang * luongCoBan;
+            //  ĐOẠN CODE SỬA CHUẨN (Chia cho 26 ngày công chuẩn của tháng):
+            const ngayCongChuan = 26;
+            const tongLuongThang = (luongCoBan / ngayCongChuan) * totalCongThang;
             
             // Định dạng hiển thị tiền tệ kiểu vi-VN (Ví dụ: 1.250.000 VNĐ)
             document.getElementById('total-luong-thang').innerText = `${tongLuongThang.toLocaleString('vi-VN')} VNĐ`;
