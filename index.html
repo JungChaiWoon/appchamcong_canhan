@@ -36,10 +36,19 @@
     <div class="max-w-md mx-auto space-y-5 mt-2 relative z-10">
         
         <!-- HEADER TRONG SUỐT CAO CẤP -->
+        <!-- HEADER TRONG SUỐT CAO CẤP + NÚT CHUYỂN THÁNG -->
         <header class="bg-white/[0.04] backdrop-blur-[24px] border border-white/[0.12] p-4 rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.2)] flex justify-between items-center">
-            <div>
-                <h1 class="text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400" id="current-month-title">Tháng Công</h1>
-                <p class="text-[10px] text-slate-400 font-medium tracking-wide">jungchaiwoon2004@gmail.com</p>
+            <div class="flex items-center gap-3">
+                <!-- Nút lùi 1 tháng -->
+                <button onclick="changeMonth(-1)" class="p-2 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 text-xs active:scale-95 transition-all">◀</button>
+                
+                <div>
+                    <h1 class="text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 min-w-[100px]" id="current-month-title">Tháng Công</h1>
+                    <p class="text-[10px] text-slate-400 font-medium tracking-wide">jungchaiwoon2004@gmail.com</p>
+                </div>
+                
+                <!-- Nút tiến 1 tháng -->
+                <button onclick="changeMonth(1)" class="p-2 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 text-xs active:scale-95 transition-all">▶</button>
             </div>
             <div id="drive-status" class="text-[10px] bg-rose-500/10 text-rose-300 border border-rose-500/15 px-2.5 py-1 rounded-xl font-bold transition-all">Drive: Chưa kết nối</div>
         </header>
@@ -143,6 +152,31 @@
         let tokenClient;
         let accessToken = null;
         let dbData = {};
+
+        // Tạo thêm 2 biến để tracking xem người dùng đang đứng ở tháng/năm nào trên giao diện
+        let viewingYear = new Date().getFullYear();
+        let viewingMonth = new Date().getMonth() + 1;
+
+        // Hàm xử lý khi bấm nút chuyển tháng
+        function changeMonth(direction) {
+            viewingMonth += direction;
+            if (viewingMonth > 12) {
+                viewingMonth = 1;
+                viewingYear += 1;
+            } else if (viewingMonth < 1) {
+                viewingMonth = 12;
+                viewingYear -= 1;
+            }
+            
+            // Cập nhật lại tiêu đề, vẽ lại lịch và tính lại tổng tiền của tháng đó
+            document.getElementById('current-month-title').innerText = `Tháng ${viewingMonth} / ${viewingYear}`;
+            renderCalendar(viewingYear, viewingMonth);
+            calculateThangTotals(viewingYear, viewingMonth);
+            
+            // Ẩn cái panel chi tiết ngày đi cho đỡ rối khi đổi tháng
+            document.getElementById('detail-panel').classList.add('hidden');
+        }
+
         let selectedDateStr = "";
         const VIETNAM_HOLIDAYS = ['01-01', '30-04', '01-05', '02-09'];
 
@@ -361,10 +395,11 @@
         // --- LOGIC CORE CỦA APP VÀ RENDER LỊCH CHUẨN REAL-TIME BLUR OS ---
         function initApp() {
             const now = new Date();
-            const currentYear = now.getFullYear();
-            const currentMonth = now.getMonth() + 1;
+            // Khởi tạo giữ nguyên tháng hiện tại khi mới load app
+            viewingYear = now.getFullYear();
+            viewingMonth = now.getMonth() + 1;
 
-            document.getElementById('current-month-title').innerText = `Tháng ${currentMonth} / ${currentYear}`;
+            document.getElementById('current-month-title').innerText = `Tháng ${viewingMonth} / ${viewingYear}`;
 
             if(localStorage.getItem('luong_cb')) {
                 document.getElementById('luong-co-ban').value = localStorage.getItem('luong_cb');
@@ -373,9 +408,11 @@
             const savedData = localStorage.getItem('db_cham_cong');
             if(savedData) dbData = JSON.parse(savedData);
 
-            cleanOldYearData(currentYear);
-            renderCalendar(currentYear, currentMonth);
-            calculateThangTotals(currentYear, currentMonth);
+            cleanOldYearData(viewingYear);
+            
+            // Đổi tham số truyền vào ăn theo 2 biến toàn cục mới
+            renderCalendar(viewingYear, viewingMonth);
+            calculateThangTotals(viewingYear, viewingMonth);
         }
 
         function cleanOldYearData(currentYear) {
