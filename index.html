@@ -12,34 +12,44 @@
         /* Hiệu ứng dải lụa màu chuyển động ngầm phía sau tấm kính giống iOS/HyperOS */
         @keyframes liquid-ambient {
             0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.2); }
-            66% { transform: translate(-20px, 20px) scale(0.8); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
             100% { transform: translate(0px, 0px) scale(1); }
         }
-        .bg-blur-blob-1 {
-            animation: liquid-ambient 20s infinite alternate;
+        /* Hiệu ứng trôi nổi bồng bềnh của các bong bóng thủy tinh 3D */
+        @keyframes bubble-float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-30px) rotate(360deg); }
         }
-        .bg-blur-blob-2 {
-            animation: liquid-ambient 25s infinite alternate-reverse;
-        }
+        .bg-blur-blob-1 { animation: liquid-ambient 20s infinite alternate; }
+        .bg-blur-blob-2 { animation: liquid-ambient 25s infinite alternate-reverse; }
+        
+        .bubble-1 { animation: bubble-float 8s infinite alternate ease-in-out; }
+        .bubble-2 { animation: bubble-float 12s infinite alternate-reverse ease-in-out; }
+
         /* Tối ưu thanh cuộn mượt mà */
         ::-webkit-scrollbar { width: 0px; }
     </style>
 </head>
-<body class="bg-[#0b0f19] text-slate-100 font-sans p-4 antialiased min-h-screen select-none pb-12 relative overflow-x-hidden">
+<body class="bg-[#080b11] text-slate-100 font-sans p-4 antialiased min-h-screen select-none pb-12 relative overflow-x-hidden">
 
-    <!-- HỆ THỐNG LIQUID LIÊN TỤC CHUYỂN ĐỘNG PHÍA SAU KÍNH -->
-    <div class="absolute top-[-10%] left-[-20%] w-[300px] h-[300px] bg-purple-700/30 rounded-full blur-[120px] pointer-events-none bg-blur-blob-1"></div>
-    <div class="absolute top-[30%] right-[-20%] w-[350px] h-[350px] bg-indigo-600/25 rounded-full blur-[130px] pointer-events-none bg-blur-blob-2"></div>
-    <div class="absolute bottom-[-10%] left-[-10%] w-[280px] h-[280px] bg-emerald-600/20 rounded-full blur-[110px] pointer-events-none bg-blur-blob-1"></div>
+    <!-- HỆ THỐNG LIQUID VÀ BONG BÓNG THỦY TINH ĐỔ BÓNG 3D PHÍA SAU KÍNH -->
+    <div class="absolute top-[-5%] left-[-10%] w-[300px] h-[300px] bg-purple-600/20 rounded-full blur-[100px] pointer-events-none bg-blur-blob-1"></div>
+    <div class="absolute top-[40%] right-[-15%] w-[350px] h-[350px] bg-cyan-600/15 rounded-full blur-[120px] pointer-events-none bg-blur-blob-2"></div>
+    <div class="absolute bottom-[-5%] left-[-5%] w-[280px] h-[280px] bg-emerald-600/15 rounded-full blur-[100px] pointer-events-none bg-blur-blob-1"></div>
+
+    <!-- CÁC BONG BÓNG GLASS ĐA KÍCH THƯỚC ĐỔ BÓNG KHỐI THEO ẢNH MẪU BD5C20 -->
+    <div class="bubble-1 absolute top-[12%] right-[8%] w-16 h-16 rounded-full bg-white/[0.02] border border-white/[0.15] shadow-[inset_0_4px_12px_rgba(255,255,255,0.15),0_10px_25px_rgba(0,0,0,0.4)] backdrop-blur-[4px] pointer-events-none"></div>
+    <div class="bubble-2 absolute bottom-[35%] left-[4%] w-24 h-24 rounded-full bg-white/[0.01] border border-white/[0.1] shadow-[inset_0_6px_16px_rgba(255,255,255,0.1),0_15px_35px_rgba(0,0,0,0.5)] backdrop-blur-[2px] pointer-events-none"></div>
+    <div class="bubble-1 absolute bottom-[8%] right-[5%] w-12 h-12 rounded-full bg-white/[0.03] border border-white/[0.2] shadow-[inset_0_4px_8px_rgba(255,255,255,0.2),0_8px_20px_rgba(0,0,0,0.4)] backdrop-blur-[3px] pointer-events-none"></div>
 
     <div class="max-w-md mx-auto space-y-5 mt-2 relative z-10">
         
-        <!-- HEADER TRONG SUỐT CAO CẤP + NÚT CHUYỂN THÁNG ICON SVG LUXURY -->
-        <header class="bg-white/[0.04] backdrop-blur-[24px] border border-white/[0.12] p-4 rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.2)] flex justify-between items-center">
+        <!-- HEADER TRONG SUỐT + ICON SVG LUXURY -->
+        <header class="bg-black/40 backdrop-blur-[25px] border border-white/[0.08] p-4 rounded-3xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_15px_35px_rgba(0,0,0,0.5)] flex justify-between items-center">
             <div class="flex items-center gap-4">
-                <!-- Nút lùi 1 tháng (Icon SVG mảnh) -->
-                <button onclick="changeMonth(-1)" class="w-8 h-8 flex items-center justify-center bg-white/[0.04] hover:bg-white/[0.12] active:scale-95 border border-white/[0.08] rounded-xl transition-all cursor-pointer text-slate-300 hover:text-white">
+                <!-- Nút lùi 1 tháng -->
+                <button onclick="changeMonth(-1)" class="w-8 h-8 flex items-center justify-center bg-white/[0.03] hover:bg-white/[0.1] active:scale-95 border border-white/[0.08] rounded-xl transition-all cursor-pointer text-slate-300 hover:text-white shadow-md">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                     </svg>
@@ -47,95 +57,100 @@
                 
                 <div class="text-center">
                     <h1 class="text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 min-w-[100px]" id="current-month-title">Tháng Công</h1>
-                    <p class="text-[10px] text-slate-400 font-medium tracking-wide">jungchaiwoon2004@gmail.com</p>
+                    <p class="text-[10px] text-slate-500 font-semibold tracking-wide">jungchaiwoon2004@gmail.com</p>
                 </div>
                 
-                <!-- Nút tiến 1 tháng (Icon SVG mảnh) -->
-                <button onclick="changeMonth(1)" class="w-8 h-8 flex items-center justify-center bg-white/[0.04] hover:bg-white/[0.12] active:scale-95 border border-white/[0.08] rounded-xl transition-all cursor-pointer text-slate-300 hover:text-white">
+                <!-- Nút tiến 1 tháng -->
+                <button onclick="changeMonth(1)" class="w-8 h-8 flex items-center justify-center bg-white/[0.03] hover:bg-white/[0.1] active:scale-95 border border-white/[0.08] rounded-xl transition-all cursor-pointer text-slate-300 hover:text-white shadow-md">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                     </svg>
                 </button>
             </div>
-            <div id="drive-status" class="text-[10px] bg-rose-500/10 text-rose-300 border border-rose-500/15 px-2.5 py-1 rounded-xl font-bold transition-all">Drive: Chưa kết nối</div>
+            <div id="drive-status" class="text-[10px] bg-rose-500/10 text-rose-300 border border-rose-500/20 px-2.5 py-1 rounded-xl font-bold transition-all shadow-[0_0_10px_rgba(244,63,94,0.15)]">Drive: Chưa kết nối</div>
         </header>
 
-        <!-- KHỐI TỔNG QUÁT THÁNG (REAL GLASSMORPHISM OS) -->
-        <div class="bg-white/[0.05] backdrop-blur-[32px] border border-white/[0.15] p-5 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.3)] space-y-4 relative overflow-hidden">
-            <!-- Đường Highlight phản xạ ánh sáng ở cạnh trên cùng của tấm kính -->
-            <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/25 to-transparent"></div>
+        <!-- KHỐI TỔNG QUÁT THÁNG (3D NEON GLASS EFFECT) -->
+        <div class="bg-black/40 backdrop-blur-[30px] border border-white/[0.08] p-5 rounded-3xl shadow-[inset_0_2px_4px_rgba(255,255,255,0.08),0_20px_40px_rgba(0,0,0,0.6)] space-y-4 relative overflow-hidden">
+            <!-- Bo viền phát sáng mờ nhẹ ở góc tấm kính -->
+            <div class="absolute inset-0 rounded-3xl border border-cyan-500/10 pointer-events-none"></div>
             
             <div class="grid grid-cols-2 gap-4">
-                <div class="bg-black/[0.15] border border-white/[0.06] p-3 rounded-xl backdrop-blur-[8px]">
+                <div class="bg-black/30 border border-white/[0.04] p-3 rounded-2xl shadow-[inset_0_1px_5px_rgba(0,0,0,0.5)]">
                     <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Số công trong tháng</p>
-                    <div class="text-3xl font-black mt-1 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300" id="total-cong-thang">0.0</div>
+                    <div class="text-3xl font-black mt-1 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 drop-shadow-[0_2px_8px_rgba(52,211,153,0.3)]" id="total-cong-thang">0.0</div>
                 </div>
-                <div class="bg-black/[0.15] border border-white/[0.06] p-3 rounded-xl backdrop-blur-[8px]">
+                <div class="bg-black/30 border border-white/[0.04] p-3 rounded-2xl shadow-[inset_0_1px_5px_rgba(0,0,0,0.5)]">
                     <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Số giờ làm việc</p>
-                    <div class="text-3xl font-black mt-1 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400" id="total-gio-thang">0.0</div>
+                    <div class="text-3xl font-black mt-1 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 drop-shadow-[0_2px_8px_rgba(34,211,238,0.3)]" id="total-gio-thang">0.0</div>
                 </div>
             </div>
-            <div class="border-t border-white/[0.08] pt-4 flex justify-between items-center px-1">
+            
+            <!-- Ô hiển thị tổng lương phát sáng Neon rực rỡ -->
+            <div class="border-t border-white/[0.08] pt-4 flex justify-between items-center px-1 relative">
                 <p class="text-xs text-slate-300 uppercase font-bold tracking-wider">Tổng lương dự kiến:</p>
-                <div class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-400 drop-shadow-[0_2px_12px_rgba(253,224,71,0.15)]" id="total-luong-thang">0 VNĐ</div>
+                <div class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-400 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]" id="total-luong-thang">0 VNĐ</div>
             </div>
         </div>
 
-        <!-- CÁC NÚT ĐỒNG BỘ DATA -->
-        <div class="bg-white/[0.03] backdrop-blur-[24px] border border-white/[0.08] p-3 rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.2)] grid grid-cols-2 gap-3">
-            <button onclick="uploadToDrive()" id="btn-upload" class="bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 border border-blue-500/20 font-bold p-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1 opacity-50 cursor-not-allowed" disabled>
+        <!-- CÁC NÚT ĐỒNG BỘ DATA VIA DRIVE -->
+        <div class="bg-black/30 backdrop-blur-[20px] border border-white/[0.06] p-3 rounded-2xl shadow-[0_10px_25px_rgba(0,0,0,0.4)] grid grid-cols-2 gap-3">
+            <button onclick="uploadToDrive()" id="btn-upload" class="bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 border border-blue-500/25 font-bold p-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1 opacity-50 cursor-not-allowed shadow-sm" disabled>
                 📤 Đẩy Data lên Drive
             </button>
-            <button onclick="downloadFromDrive()" id="btn-download" class="bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 border border-teal-500/20 font-bold p-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1 opacity-50 cursor-not-allowed" disabled>
+            <button onclick="downloadFromDrive()" id="btn-download" class="bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 border border-teal-500/25 font-bold p-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1 opacity-50 cursor-not-allowed shadow-sm" disabled>
                 📥 Kéo Data từ Drive về
             </button>
         </div>
 
-        <!-- LỊCH THÁNG (SIÊU TRONG SUỐT) -->
-        <div class="bg-white/[0.03] backdrop-blur-[32px] border border-white/[0.08] p-4 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.25)]">
+        <!-- LỊCH THÁNG (NEON GLASS GRID) -->
+        <div class="bg-black/40 backdrop-blur-[30px] border border-white/[0.08] p-4 rounded-3xl shadow-[inset_0_1px_3px_rgba(255,255,255,0.05),0_15px_35px_rgba(0,0,0,0.5)]">
             <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-slate-400 mb-3 tracking-wide">
-                <div class="text-rose-400/90">CN</div><div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div>T7</div>
+                <div class="text-rose-400/80">CN</div><div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div>T7</div>
             </div>
             <div class="grid grid-cols-7 gap-2 text-center" id="calendar-grid"></div>
         </div>
 
-        <!-- PANEL CHI TIẾT NGÀY ĐƯỢC CHỌN -->
-        <div id="detail-panel" class="bg-white/[0.06] backdrop-blur-[32px] border border-white/[0.12] p-4 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.3)] space-y-4 hidden">
-            <div class="border-b border-white/[0.08] pb-2 flex justify-between items-center">
+        <!-- PANEL CHI TIẾT NGÀY ĐƯỢC CHỌN (3D GLASS BOX) -->
+        <div id="detail-panel" class="bg-black/40 backdrop-blur-[30px] border border-white/[0.1] p-4 rounded-3xl shadow-[inset_0_2px_4px_rgba(255,255,255,0.06),0_20px_40px_rgba(0,0,0,0.5)] space-y-4 hidden relative overflow-hidden">
+            <!-- Bong bóng thủy tinh mini trang trí góc bảng điều khiển -->
+            <div class="absolute right-[-10px] bottom-[-10px] w-12 h-12 rounded-full bg-white/[0.02] border border-white/[0.1] shadow-[inset_0_2px_6px_rgba(255,255,255,0.2)] pointer-events-none"></div>
+
+            <div class="border-b border-white/[0.06] pb-2 flex justify-between items-center">
                 <h3 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-300 text-sm" id="selected-date-label">Ngày</h3>
-                <span id="holiday-badge" class="hidden bg-rose-500/15 text-rose-300 border border-rose-500/20 text-[10px] px-2 py-0.5 rounded-full font-bold">Ngày Lễ (x2)</span>
+                <span id="holiday-badge" class="hidden bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold shadow-[0_0_8px_rgba(244,63,94,0.3)]">Ngày Lễ (x2)</span>
             </div>
 
             <div class="grid grid-cols-2 gap-3">
-                <label class="flex items-center justify-between p-3 bg-black/[0.1] rounded-xl border border-white/[0.06] cursor-pointer hover:bg-white/[0.06] transition-all">
-                    <span class="text-xs font-medium text-slate-200">Ca Sáng (0.5)</span>
+                <label class="flex items-center justify-between p-3 bg-black/20 rounded-xl border border-white/[0.04] cursor-pointer hover:bg-white/[0.05] transition-all shadow-inner">
+                    <span class="text-xs font-medium text-slate-300">Ca Sáng (0.5)</span>
                     <input type="checkbox" id="ca-sang" onchange="updateDayData()" class="w-5 h-5 rounded accent-emerald-500">
                 </label>
-                <label class="flex items-center justify-between p-3 bg-black/[0.1] rounded-xl border border-white/[0.06] cursor-pointer hover:bg-white/[0.06] transition-all">
-                    <span class="text-xs font-medium text-slate-200">Ca Chiều (0.5)</span>
+                <label class="flex items-center justify-between p-3 bg-black/20 rounded-xl border border-white/[0.04] cursor-pointer hover:bg-white/[0.05] transition-all shadow-inner">
+                    <span class="text-xs font-medium text-slate-300">Ca Chiều (0.5)</span>
                     <input type="checkbox" id="ca-chieu" onchange="updateDayData()" class="w-5 h-5 rounded accent-emerald-500">
                 </label>
             </div>
 
-            <!-- Cụm 3 ô nhập số phút tăng ca (Thêm tăng ca sáng) -->
+            <!-- Cụm 3 ô nhập số phút tăng ca -->
             <div class="space-y-3">
                 <div>
                     <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Tăng ca sáng (phút):</label>
-                    <input type="number" id="ca-sang-mins" value="0" min="0" oninput="updateDayData()" class="w-full bg-black/[0.1] border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-purple-400 focus:bg-white/[0.06] transition-all">
+                    <input type="number" id="ca-sang-mins" value="0" min="0" oninput="updateDayData()" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Tăng ca trưa (phút):</label>
-                        <input type="number" id="ca-trua" value="0" min="0" oninput="updateDayData()" class="w-full bg-black/[0.1] border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-purple-400 focus:bg-white/[0.06] transition-all">
+                        <input type="number" id="ca-trua" value="0" min="0" oninput="updateDayData()" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Tăng ca tối (phút):</label>
-                        <input type="number" id="ca-toi" value="0" min="0" oninput="updateDayData()" class="w-full bg-black/[0.1] border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-purple-400 focus:bg-white/[0.06] transition-all">
+                        <input type="number" id="ca-toi" value="0" min="0" oninput="updateDayData()" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
                     </div>
                 </div>
             </div>
 
-            <div class="bg-black/[0.1] p-3 rounded-xl text-xs space-y-1.5 border border-white/[0.04]">
+            <div class="bg-black/20 p-3 rounded-xl text-xs space-y-1.5 border border-white/[0.02]">
                 <div class="flex justify-between">
                     <span class="text-slate-400">Công quy đổi trong ngày:</span>
                     <span class="font-bold text-slate-200" id="day-cong-result">0.0 công</span>
@@ -147,11 +162,11 @@
             </div>
         </div>
 
-        <!-- CẤU HÌNH LƯƠNG CƠ BẢN -->
-        <div class="bg-white/[0.03] backdrop-blur-[32px] border border-white/[0.08] p-4 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.2)]">
+        <!-- CẤU HÌNH LƯƠNG CƠ BẢN (GLASS SLIDER FIELD) -->
+        <div class="bg-black/30 backdrop-blur-[25px] border border-white/[0.06] p-4 rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.4)]">
             <label class="block text-[10px] text-slate-400 mb-1.5 font-bold uppercase tracking-wider">Cấu hình lương cơ bản:</label>
             <div class="relative">
-                <input type="text" id="luong-co-ban" value="6.000.000" oninput="formatCurrencyInput(this)" class="w-full bg-black/[0.1] border border-white/[0.06] rounded-xl p-3 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 font-black focus:outline-none focus:border-purple-400 focus:bg-white/[0.06] transition-all pr-12">
+                <input type="text" id="luong-co-ban" value="6.000.000" oninput="formatCurrencyInput(this)" class="w-full bg-black/20 border border-white/[0.06] rounded-xl p-3 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 font-black focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all pr-12 shadow-inner">
                 <span class="absolute right-4 top-3.5 text-xs text-slate-500 font-bold">VNĐ</span>
             </div>
         </div>
@@ -167,11 +182,9 @@
         let accessToken = null;
         let dbData = {};
 
-        // Tạo thêm 2 biến để tracking xem người dùng đang đứng ở tháng/năm nào trên giao diện
         let viewingYear = new Date().getFullYear();
         let viewingMonth = new Date().getMonth() + 1;
 
-        // Hàm xử lý khi bấm nút chuyển tháng
         function changeMonth(direction) {
             viewingMonth += direction;
             if (viewingMonth > 12) {
@@ -182,12 +195,9 @@
                 viewingYear -= 1;
             }
             
-            // Cập nhật lại tiêu đề, vẽ lại lịch và tính lại tổng tiền của tháng đó
             document.getElementById('current-month-title').innerText = `Tháng ${viewingMonth} / ${viewingYear}`;
             renderCalendar(viewingYear, viewingMonth);
             calculateThangTotals(viewingYear, viewingMonth);
-            
-            // Ẩn cái panel chi tiết ngày đi cho đỡ rối khi đổi tháng
             document.getElementById('detail-panel').classList.add('hidden');
         }
 
@@ -200,7 +210,6 @@
             initApp();
         };
 
-        // --- INTERACTION VỚI GOOGLE DRIVE API ---
         function initGapiClient() {
             gapi.client.init({}).then(() => {
                 gapi.client.load('https://www.googleapis.com/discovery/v1/apis/drive/v3/rest');
@@ -221,7 +230,7 @@
                     accessToken = tokenResponse.access_token;
                     
                     document.getElementById('drive-status').innerText = "Drive: Đã Kết Nối ✅";
-                    document.getElementById('drive-status').className = "text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-xl font-bold";
+                    document.getElementById('drive-status').className = "text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-xl font-bold shadow-[0_0_10px_rgba(16,185,129,0.2)]";
                     
                     document.getElementById('btn-upload').disabled = false;
                     document.getElementById('btn-upload').classList.remove('opacity-50', 'cursor-not-allowed');
@@ -406,10 +415,8 @@
             });
         }
 
-        // --- LOGIC CORE CỦA APP VÀ RENDER LỊCH CHUẨN REAL-TIME BLUR OS ---
         function initApp() {
             const now = new Date();
-            // Khởi tạo giữ nguyên tháng hiện tại khi mới load app
             viewingYear = now.getFullYear();
             viewingMonth = now.getMonth() + 1;
 
@@ -424,7 +431,6 @@
 
             cleanOldYearData(viewingYear);
             
-            // Đổi tham số truyền vào ăn theo 2 biến toàn cục mới
             renderCalendar(viewingYear, viewingMonth);
             calculateThangTotals(viewingYear, viewingMonth);
         }
@@ -441,6 +447,7 @@
             if (hasChanged) localStorage.setItem('db_cham_cong', JSON.stringify(dbData));
         }
 
+        // --- RENDER GRID LỊCH CHUẨN NEON GLASS EFFECT 3D ---
         function renderCalendar(year, month) {
             const grid = document.getElementById('calendar-grid');
             grid.innerHTML = "";
@@ -458,18 +465,19 @@
                 const dayOfWeek = new Date(year, month - 1, day).getDay();
 
                 cell.innerText = day;
-                cell.className = "p-3 rounded-xl font-bold text-sm transition-all relative flex items-center justify-center min-h-[44px] cursor-pointer border border-white/[0.04]";
+                // Tạo viền 3D dầy đổ bóng khối cho ô ngày thường
+                cell.className = "p-3 rounded-2xl font-bold text-sm transition-all relative flex items-center justify-center min-h-[44px] cursor-pointer border border-white/[0.04] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_10px_rgba(0,0,0,0.3)] bg-white/[0.02]";
                 
                 if(dayOfWeek === 0) {
-                    cell.classList.add('text-rose-300', 'bg-rose-500/10', 'hover:bg-rose-500/20');
+                    cell.classList.add('text-rose-300', 'bg-rose-500/5', 'border-rose-500/10', 'hover:bg-rose-500/15');
                 } else {
-                    cell.classList.add('text-slate-200', 'bg-white/[0.04]', 'hover:bg-white/[0.12]');
+                    cell.classList.add('text-slate-300', 'hover:bg-white/[0.08]');
                 }
 
-                // Thêm điều kiện dayData.sangMins > 0 để tự động thắp sáng đèn ô lịch
+                // HIỆU ỨNG TIA SÁNG NEON PHÁT SÁNG DROP-SHADOW MẠNH MẼ THEO ẢNH BD5C20 KHI CÓ CÔNG
                 if (dbData[dateStr] && (dbData[dateStr].sang || dbData[dateStr].chieu || dbData[dateStr].sangMins > 0 || dbData[dateStr].trua > 0 || dbData[dateStr].toi > 0)) {
-                    cell.classList.remove('bg-white/[0.04]', 'bg-rose-500/10', 'text-slate-200', 'text-rose-300');
-                    cell.classList.add('bg-gradient-to-br', 'from-emerald-400/25', 'to-teal-400/25', 'text-emerald-300', 'border-emerald-400/40', 'shadow-[0_0_15px_rgba(52,211,153,0.2)]');
+                    cell.classList.remove('bg-white/[0.02]', 'bg-rose-500/5', 'text-slate-300', 'text-rose-300', 'border-white/[0.04]', 'border-rose-500/10');
+                    cell.classList.add('bg-black/40', 'text-emerald-300', 'border-emerald-400', 'shadow-[0_0_18px_rgba(52,211,153,0.5),inset_0_1px_2px_rgba(255,255,255,0.2)]');
                 }
 
                 cell.onclick = () => selectDate(dateStr, day, dayOfWeek);
@@ -491,13 +499,13 @@
             if(dbData[dateStr]) {
                 document.getElementById('ca-sang').checked = dbData[dateStr].sang || false;
                 document.getElementById('ca-chieu').checked = dbData[dateStr].chieu || false;
-                document.getElementById('ca-sang-mins').value = dbData[dateStr].sangMins || 0; // Thêm dòng này
+                document.getElementById('ca-sang-mins').value = dbData[dateStr].sangMins || 0;
                 document.getElementById('ca-trua').value = dbData[dateStr].trua || 0;
                 document.getElementById('ca-toi').value = dbData[dateStr].toi || 0;
             } else {
                 document.getElementById('ca-sang').checked = false;
                 document.getElementById('ca-chieu').checked = false;
-                document.getElementById('ca-sang-mins').value = 0; // Thêm dòng này
+                document.getElementById('ca-sang-mins').value = 0;
                 document.getElementById('ca-trua').value = 0;
                 document.getElementById('ca-toi').value = 0;
             }
@@ -511,7 +519,7 @@
 
             const sang = document.getElementById('ca-sang').checked;
             const chieu = document.getElementById('ca-chieu').checked;
-            const sangMins = parseInt(document.getElementById('ca-sang-mins').value) || 0; // Thêm dòng này
+            const sangMins = parseInt(document.getElementById('ca-sang-mins').value) || 0;
             const truaMins = parseInt(document.getElementById('ca-trua').value) || 0;
             const toiMins = parseInt(document.getElementById('ca-toi').value) || 0;
 
@@ -519,7 +527,7 @@
 
             if(sang) totalHours += 4;
             if(chieu) totalHours += 4;
-            totalHours += (sangMins / 60); // Thêm dòng này
+            totalHours += (sangMins / 60);
             totalHours += (truaMins / 60);
             totalHours += (toiMins / 60);
 
@@ -545,11 +553,11 @@
 
             const sang = document.getElementById('ca-sang').checked;
             const chieu = document.getElementById('ca-chieu').checked;
-            const sangMins = parseInt(document.getElementById('ca-sang-mins').value) || 0; // Thêm dòng này
+            const sangMins = parseInt(document.getElementById('ca-sang-mins').value) || 0;
             const trua = parseInt(document.getElementById('ca-trua').value) || 0;
             const toi = parseInt(document.getElementById('ca-toi').value) || 0;
 
-            dbData[selectedDateStr] = { sang, chieu, sangMins, trua, toi }; // Cập nhật object lưu trữ
+            dbData[selectedDateStr] = { sang, chieu, sangMins, trua, toi };
             localStorage.setItem('db_cham_cong', JSON.stringify(dbData));
 
             const parts = selectedDateStr.split('-');
@@ -568,7 +576,7 @@
 
                     if(dayData.sang) dayHours += 4;
                     if(dayData.chieu) dayHours += 4;
-                    if(dayData.sangMins) dayHours += (dayData.sangMins / 60); // Thêm dòng này để quét data cũ
+                    if(dayData.sangMins) dayHours += (dayData.sangMins / 60);
                     dayHours += (dayData.trua / 60);
                     dayHours += (dayData.toi / 60);
 
