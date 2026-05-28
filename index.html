@@ -93,13 +93,13 @@
             </div>
         </div>
 
-        <!-- CÁC NÚT ĐỒNG BỘ DATA VIA DRIVE -->
+        <!-- CÁC NÚT ĐỒNG BỘ DATA VIA DRIVE (ICON ĐÃ PHÓNG TO) -->
         <div class="bg-black/30 backdrop-blur-[20px] border border-white/[0.06] p-3 rounded-2xl shadow-[0_10px_25px_rgba(0,0,0,0.4)] grid grid-cols-2 gap-3">
             <button onclick="uploadToDrive()" id="btn-upload" class="bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 border border-blue-500/25 font-bold p-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1 opacity-50 cursor-not-allowed shadow-sm" disabled>
-                📤 Đẩy Data lên Drive
+                <span class="text-base mr-1.5">📤</span> Đẩy Data lên Drive
             </button>
             <button onclick="downloadFromDrive()" id="btn-download" class="bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 border border-teal-500/25 font-bold p-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1 opacity-50 cursor-not-allowed shadow-sm" disabled>
-                📥 Kéo Data từ Drive về
+                <span class="text-base mr-1.5">📥</span> Kéo Data từ Drive về
             </button>
         </div>
 
@@ -269,11 +269,11 @@
 
         function uploadToDrive() {
             checkAuth(() => {
-                document.getElementById('btn-upload').innerText = "⏳ Đang đẩy...";
+                document.getElementById('btn-upload').innerHTML = '<span class="text-base mr-1.5">⏳</span> Đang đẩy...';
                 getFolderId((folderId) => {
                     if (!folderId) {
                         alert("Lỗi xử lý thư mục!");
-                        document.getElementById('btn-upload').innerText = "📤 Đẩy Data lên Drive";
+                        document.getElementById('btn-upload').innerHTML = '<span class="text-base mr-1.5">📤</span> Đẩy Data lên Drive';
                         return;
                     }
                     findFileOnDrive(folderId, (fileId) => {
@@ -290,17 +290,17 @@
 
         function downloadFromDrive() {
             checkAuth(() => {
-                document.getElementById('btn-download').innerText = "⏳ Đang kéo...";
+                document.getElementById('btn-download').innerHTML = '<span class="text-base mr-1.5">⏳</span> Đang kéo...';
                 getFolderId((folderId) => {
                     if (!folderId) {
                         alert("Lỗi xử lý thư mục!");
-                        document.getElementById('btn-download').innerText = "📥 Kéo Data từ Drive về";
+                        document.getElementById('btn-download').innerHTML = '<span class="text-base mr-1.5">📥</span> Kéo Data từ Drive về';
                         return;
                     }
                     findFileOnDrive(folderId, (fileId) => {
                         if (!fileId) {
                             alert("Không tìm thấy file backup nào trong thư mục AppChamCong!");
-                            document.getElementById('btn-download').innerText = "📥 Kéo Data từ Drive về";
+                            document.getElementById('btn-download').innerHTML = '<span class="text-base mr-1.5">📥</span> Kéo Data từ Drive về';
                             return;
                         }
                         gapi.client.drive.files.get({
@@ -315,7 +315,7 @@
                         }).catch(err => {
                             console.error(err);
                             alert("Lỗi khi tải file!");
-                            document.getElementById('btn-download').innerText = "📥 Kéo Data từ Drive về";
+                            document.getElementById('btn-download').innerHTML = '<span class="text-base mr-1.5">📥</span> Kéo Data từ Drive về';
                         });
                     });
                 });
