@@ -3,98 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tính Công Minh Tiền</title>
+    <title>Tính Công Cá Nhân</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://accounts.google.com/gsi/client"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans p-4 antialiased select-none">
+<body class="bg-gradient-to-tr from-[#0f172a] via-[#1e1b4b] to-[#311042] text-slate-100 font-sans p-4 antialiased min-h-screen select-none pb-10">
 
-    <div class="max-w-md mx-auto space-y-4">
+    <div class="max-w-md mx-auto space-y-5 mt-2">
         
-        <header class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-xl flex justify-between items-center">
+        <header class="bg-white/10 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] flex justify-between items-center">
             <div>
-                <h1 class="text-lg font-bold text-emerald-400" id="current-month-title">Tháng Công</h1>
-                <p class="text-xs text-slate-400">jungchaiwoon2004@gmail.com</p>
+                <h1 class="text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300" id="current-month-title">Tháng Công</h1>
+                <p class="text-[10px] text-slate-400">jungchaiwoon2004@gmail.com</p>
             </div>
-            <div id="drive-status" class="text-[10px] bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-1 rounded-lg font-bold">Drive: Chưa kết nối</div>
+            <div id="drive-status" class="text-[10px] bg-rose-500/10 text-rose-300 border border-rose-500/20 px-2.5 py-1 rounded-xl font-bold transition-all">Drive: Chưa kết nối</div>
         </header>
 
-        <div class="bg-gradient-to-br from-emerald-600 to-teal-700 p-5 rounded-2xl shadow-lg grid grid-cols-2 gap-4">
-            <div>
-                <p class="text-xs opacity-80 uppercase font-bold tracking-wider">Số công trong tháng</p>
-                <div class="text-3xl font-black mt-1" id="total-cong-thang">0.0</div>
+        <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-5 rounded-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.35)] space-y-4 relative overflow-hidden before:absolute before:top-0 before:left-0 before:w-full before:h-[1px] before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white/5 border border-white/10 p-3 rounded-xl backdrop-blur-sm">
+                    <p class="text-[10px] text-slate-300 uppercase font-bold tracking-wider opacity-80">Số công trong tháng</p>
+                    <div class="text-3xl font-black mt-1 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300" id="total-cong-thang">0.0</div>
+                </div>
+                <div class="bg-white/5 border border-white/10 p-3 rounded-xl backdrop-blur-sm">
+                    <p class="text-[10px] text-slate-300 uppercase font-bold tracking-wider opacity-80">Số giờ làm việc</p>
+                    <div class="text-3xl font-black mt-1 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400" id="total-gio-thang">0.0</div>
+                </div>
             </div>
-            <div>
-                <p class="text-xs opacity-80 uppercase font-bold tracking-wider">Số giờ làm việc</p>
-                <div class="text-3xl font-black mt-1" id="total-gio-thang">0.0</div>
-            </div>
-            <div class="border-t border-white/20 pt-3 flex justify-between items-center">
-                <p class="text-xs opacity-80 uppercase font-bold tracking-wider">Tổng lương dự kiến:</p>
-                <div class="text-2xl font-black text-yellow-300" id="total-luong-thang">0 VNĐ</div>
+            <div class="border-t border-white/10 pt-3.5 flex justify-between items-center px-1">
+                <p class="text-xs text-slate-300 uppercase font-bold tracking-wider">Tổng lương dự kiến:</p>
+                <div class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-400 drop-shadow-[0_2px_10px_rgba(253,224,71,0.2)]" id="total-luong-thang">0 VNĐ</div>
             </div>
         </div>
 
-        <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 shadow-xl grid grid-cols-2 gap-3">
-            <button onclick="uploadToDrive()" id="btn-upload" class="bg-blue-600 hover:bg-blue-700 text-white font-bold p-2.5 rounded-xl text-xs transition flex items-center justify-center gap-1 opacity-50 cursor-not-allowed" disabled>
+        <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-3 rounded-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] grid grid-cols-2 gap-3">
+            <button onclick="uploadToDrive()" id="btn-upload" class="bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 border border-blue-500/30 font-bold p-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1 opacity-50 cursor-not-allowed" disabled>
                 📤 Đẩy Data lên Drive
             </button>
-            <button onclick="downloadFromDrive()" id="btn-download" class="bg-teal-600 hover:bg-teal-700 text-white font-bold p-2.5 rounded-xl text-xs transition flex items-center justify-center gap-1 opacity-50 cursor-not-allowed" disabled>
+            <button onclick="downloadFromDrive()" id="btn-download" class="bg-teal-500/20 hover:bg-teal-500/30 text-teal-300 border border-teal-500/30 font-bold p-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1 opacity-50 cursor-not-allowed" disabled>
                 📥 Kéo Data từ Drive về
             </button>
         </div>
 
-        <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-xl">
-            <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-slate-400 mb-2">
-                <div class="text-red-400">CN</div><div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div>T7</div>
+        <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
+            <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-slate-400 mb-3">
+                <div class="text-rose-400">CN</div><div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div>T7</div>
             </div>
             <div class="grid grid-cols-7 gap-2 text-center" id="calendar-grid"></div>
         </div>
 
-        <div id="detail-panel" class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-xl space-y-4 hidden">
-            <div class="border-b border-slate-700 pb-2 flex justify-between items-center">
-                <h3 class="font-bold text-emerald-400" id="selected-date-label">Ngày</h3>
-                <span id="holiday-badge" class="hidden bg-red-500/20 text-red-400 border border-red-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold">Ngày Lễ (x2)</span>
+        <div id="detail-panel" class="bg-white/10 backdrop-blur-xl border border-white/15 p-4 rounded-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] space-y-4 hidden">
+            <div class="border-b border-white/10 pb-2 flex justify-between items-center">
+                <h3 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-300 text-sm" id="selected-date-label">Ngày</h3>
+                <span id="holiday-badge" class="hidden bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold">Ngày Lễ (x2)</span>
             </div>
 
             <div class="grid grid-cols-2 gap-3">
-                <label class="flex items-center justify-between p-3 bg-slate-900 rounded-xl border border-slate-700/50 cursor-pointer">
-                    <span class="text-sm">Ca Sáng (0.5)</span>
+                <label class="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/10 cursor-pointer hover:bg-white/10 transition-all">
+                    <span class="text-xs font-medium text-slate-200">Ca Sáng (0.5)</span>
                     <input type="checkbox" id="ca-sang" onchange="updateDayData()" class="w-5 h-5 rounded accent-emerald-500">
                 </label>
-                <label class="flex items-center justify-between p-3 bg-slate-900 rounded-xl border border-slate-700/50 cursor-pointer">
-                    <span class="text-sm">Ca Chiều (0.5)</span>
+                <label class="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/10 cursor-pointer hover:bg-white/10 transition-all">
+                    <span class="text-xs font-medium text-slate-200">Ca Chiều (0.5)</span>
                     <input type="checkbox" id="ca-chieu" onchange="updateDayData()" class="w-5 h-5 rounded accent-emerald-500">
                 </label>
             </div>
 
-            <div class="space-y-3">
+            <div class="grid grid-cols-2 gap-3">
                 <div>
-                    <label class="block text-xs text-slate-400 mb-1">Ca Trưa (Số phút tăng ca):</label>
-                    <input type="number" id="ca-trua" value="0" min="0" oninput="updateDayData()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-emerald-500">
+                    <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Tăng ca trưa (phút):</label>
+                    <input type="number" id="ca-trua" value="0" min="0" oninput="updateDayData()" class="w-full bg-white/5 border border-white/10 rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-purple-400 focus:bg-white/10 transition-all">
                 </div>
                 <div>
-                    <label class="block text-xs text-slate-400 mb-1">Ca Tối (Số phút tăng ca):</label>
-                    <input type="number" id="ca-toi" value="0" min="0" oninput="updateDayData()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-emerald-500">
+                    <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Tăng ca tối (phút):</label>
+                    <input type="number" id="ca-toi" value="0" min="0" oninput="updateDayData()" class="w-full bg-white/5 border border-white/10 rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-purple-400 focus:bg-white/10 transition-all">
                 </div>
             </div>
 
-            <div class="bg-slate-900 p-3 rounded-xl text-xs space-y-1.5 border border-slate-700/30">
+            <div class="bg-white/5 p-3 rounded-xl text-xs space-y-1.5 border border-white/5">
                 <div class="flex justify-between">
-                    <span class="text-slate-400">Công làm việc trong ngày:</span>
+                    <span class="text-slate-400">Công quy đổi trong ngày:</span>
                     <span class="font-bold text-slate-200" id="day-cong-result">0.0 công</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-slate-400">Giờ làm việc trong ngày:</span>
-                    <span class="font-bold text-emerald-400" id="day-gio-result">0 giờ</span>
+                    <span class="text-slate-400">Tổng giờ làm trong ngày:</span>
+                    <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400" id="day-gio-result">0 giờ</span>
                 </div>
             </div>
         </div>
 
-        <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-xl">
-            <label class="block text-xs text-slate-400 mb-1 font-bold uppercase tracking-wider">Cấu hình lương cơ bản:</label>
+        <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
+            <label class="block text-[10px] text-slate-400 mb-1.5 font-bold uppercase tracking-wider">Cấu hình lương cơ bản:</label>
             <div class="relative">
-                <input type="text" id="luong-co-ban" value="6.000.000" oninput="formatCurrencyInput(this)" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-emerald-400 font-bold focus:outline-none focus:border-emerald-500 pr-12">
+                <input type="text" id="luong-co-ban" value="6.000.000" oninput="formatCurrencyInput(this)" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 font-black focus:outline-none focus:border-purple-500 focus:bg-white/10 transition-all pr-12">
                 <span class="absolute right-4 top-3.5 text-xs text-slate-500 font-bold">VNĐ</span>
             </div>
         </div>
@@ -128,7 +130,6 @@
         }
 
         function initTokenClient() {
-            // Khởi tạo client dùng cơ chế Pop-up chuẩn, bỏ hẳn chế độ tự động gọi ngầm gây crash trên Brave
             tokenClient = google.accounts.oauth2.initTokenClient({
                 client_id: CLIENT_ID,
                 scope: SCOPES,
@@ -137,20 +138,16 @@
                         alert("Lỗi xác thực từ Google: " + tokenResponse.error);
                         return;
                     }
-                    // Đăng nhập thành công, lưu Token
                     accessToken = tokenResponse.access_token;
                     
-                    // Đổi màu thông báo trạng thái kết nối Drive
                     document.getElementById('drive-status').innerText = "Drive: Đã Kết Nối ✅";
-                    document.getElementById('drive-status').className = "text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded-lg font-bold";
+                    document.getElementById('drive-status').className = "text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-xl font-bold";
                     
-                    // Mở khóa 2 nút bấm Đẩy/Kéo dữ liệu
                     document.getElementById('btn-upload').disabled = false;
                     document.getElementById('btn-upload').classList.remove('opacity-50', 'cursor-not-allowed');
                     document.getElementById('btn-download').disabled = false;
                     document.getElementById('btn-download').classList.remove('opacity-50', 'cursor-not-allowed');
                     
-                    // Thực hiện tiếp hành động được yêu cầu trước đó (nếu có)
                     if (window.pendingCallback) {
                         window.pendingCallback();
                         window.pendingCallback = null;
@@ -158,18 +155,15 @@
                 },
             });
             
-            // Ép nút hiển thị giao diện sẵn sàng để m bấm kích hoạt
             document.getElementById('btn-upload').disabled = false;
             document.getElementById('btn-upload').classList.remove('opacity-50', 'cursor-not-allowed');
             document.getElementById('btn-download').disabled = false;
             document.getElementById('btn-download').classList.remove('opacity-50', 'cursor-not-allowed');
         }
 
-        // Hàm kiểm tra quyền, nếu chưa đăng nhập sẽ ép thò pop-up đứng im chờ m click chọn tài khoản
         function checkAuth(callback) {
             if (accessToken === null) {
                 window.pendingCallback = callback;
-                // Thiết lập prompt: 'select_account' để ép Google giữ cửa sổ bắt chọn tài khoản, không cho tự đóng
                 tokenClient.requestAccessToken({ prompt: 'select_account' });
             } else {
                 callback();
@@ -179,117 +173,17 @@
         function uploadToDrive() {
             checkAuth(() => {
                 document.getElementById('btn-upload').innerText = "⏳ Đang đẩy...";
-                findFileOnDrive((fileId) => {
-                    const content = localStorage.getItem('db_cham_cong') || '{}';
-                    if (fileId) {
-                        updateFileContent(fileId, content);
-                    } else {
-                        createFileOnDrive(content);
-                    }
-                });
-            });
-        }
-
-        function downloadFromDrive() {
-            checkAuth(() => {
-                document.getElementById('btn-download').innerText = "⏳ Đang kéo...";
-                findFileOnDrive((fileId) => {
-                    if (!fileId) {
-                        alert("Không tìm thấy file backup nào trên Drive của m!");
-                        document.getElementById('btn-download').innerText = "📥 Kéo Data từ Drive về";
-                        return;
-                    }
-                    gapi.client.drive.files.get({
-                        fileId: fileId,
-                        alt: 'media'
-                    }).then(response => {
-                        if(response.body) {
-                            localStorage.setItem('db_cham_cong', response.body);
-                            alert("Kéo dữ liệu thành công! App sẽ tự động reload.");
-                            location.reload();
-                        }
-                    }).catch(err => {
-                        console.error(err);
-                        alert("Lỗi khi tải file!");
-                    });
-                });
-            });
-        }
-
-        // --- LOGIC ĐƯA FILE VÀO THƯ MỤC APPCHAMCONG ---
-
-        // Hàm tổng hợp để tìm hoặc tạo Folder, sau đó xử lý file
-        function getFolderId(callback) {
-            gapi.client.drive.files.list({
-                q: "name = 'AppChamCong' and mimeType = 'application/vnd.google-apps.folder' and trashed = false",
-                fields: 'files(id, name)',
-                spaces: 'drive'
-            }).then(response => {
-                const files = response.result.files;
-                if (files && files.length > 0) {
-                    // Đã có folder, trả về ID luôn
-                    callback(files[0].id);
-                } else {
-                    // Chưa có folder, tiến hành tạo mới
-                    gapi.client.drive.files.create({
-                        resource: {
-                            name: 'AppChamCong',
-                            mimeType: 'application/vnd.google-apps.folder'
-                        },
-                        fields: 'id'
-                    }).then(folderResponse => {
-                        callback(folderResponse.result.id);
-                    }).catch(err => {
-                        console.error("Lỗi tạo folder:", err);
-                        alert("Không thể tạo thư mục AppChamCong trên Drive!");
-                    });
-                }
-            }).catch(err => {
-                console.error("Lỗi tìm folder:", err);
-                callback(null);
-            });
-        }
-
-        // Hàm tìm file JSON nằm TRONG thư mục AppChamCong
-        function findFileOnDrive(folderId, callback) {
-            gapi.client.drive.files.list({
-                q: `name = '${FILE_NAME}' and '${folderId}' in parents and trashed = false`,
-                fields: 'files(id, name)',
-                spaces: 'drive'
-            }).then(response => {
-                const files = response.result.files;
-                if (files && files.length > 0) {
-                    callback(files[0].id);
-                } else {
-                    callback(null);
-                }
-            }).catch(err => {
-                console.error("Lỗi tìm file:", err);
-                callback(null);
-            });
-        }
-
-        // Thay đổi hàm upload gốc để chạy theo luồng: Tìm Folder -> Tìm File -> Đẩy Data
-        function uploadToDrive() {
-            checkAuth(() => {
-                document.getElementById('btn-upload').innerText = "⏳ Đang đẩy...";
-                
-                // 1. Tìm hoặc tạo thư mục AppChamCong trước
                 getFolderId((folderId) => {
                     if (!folderId) {
                         alert("Lỗi xử lý thư mục!");
                         document.getElementById('btn-upload').innerText = "📤 Đẩy Data lên Drive";
                         return;
                     }
-                    
-                    // 2. Tìm file JSON bên trong thư mục đó
                     findFileOnDrive(folderId, (fileId) => {
                         const content = localStorage.getItem('db_cham_cong') || '{}';
                         if (fileId) {
-                            // Nếu file đã nằm trong folder rồi thì chỉ cập nhật nội dung
                             updateFileContent(fileId, content);
                         } else {
-                            // Nếu chưa có file thì tạo mới và chỉ định nằm trong folder
                             createFileOnDrive(folderId, content);
                         }
                     });
@@ -297,18 +191,15 @@
             });
         }
 
-        // Thay đổi hàm download gốc để tìm file trong đúng folder
         function downloadFromDrive() {
             checkAuth(() => {
                 document.getElementById('btn-download').innerText = "⏳ Đang kéo...";
-                
                 getFolderId((folderId) => {
                     if (!folderId) {
                         alert("Lỗi xử lý thư mục!");
                         document.getElementById('btn-download').innerText = "📥 Kéo Data từ Drive về";
                         return;
                     }
-
                     findFileOnDrive(folderId, (fileId) => {
                         if (!fileId) {
                             alert("Không tìm thấy file backup nào trong thư mục AppChamCong!");
@@ -334,13 +225,58 @@
             });
         }
 
-        // Tạo file mới nằm trong thư mục chỉ định
+        function getFolderId(callback) {
+            gapi.client.drive.files.list({
+                q: "name = 'AppChamCong' and mimeType = 'application/vnd.google-apps.folder' and trashed = false",
+                fields: 'files(id, name)',
+                spaces: 'drive'
+            }).then(response => {
+                const files = response.result.files;
+                if (files && files.length > 0) {
+                    callback(files[0].id);
+                } else {
+                    gapi.client.drive.files.create({
+                        resource: {
+                            name: 'AppChamCong',
+                            mimeType: 'application/vnd.google-apps.folder'
+                        },
+                        fields: 'id'
+                    }).then(folderResponse => {
+                        callback(folderResponse.result.id);
+                    }).catch(err => {
+                        console.error("Lỗi tạo folder:", err);
+                        alert("Không thể tạo thư mục AppChamCong trên Drive!");
+                    });
+                }
+            }).catch(err => {
+                console.error("Lỗi tìm folder:", err);
+                callback(null);
+            });
+        }
+
+        function findFileOnDrive(folderId, callback) {
+            gapi.client.drive.files.list({
+                q: `name = '${FILE_NAME}' and '${folderId}' in parents and trashed = false`,
+                fields: 'files(id, name)',
+                spaces: 'drive'
+            }).then(response => {
+                const files = response.result.files;
+                if (files && files.length > 0) {
+                    callback(files[0].id);
+                } else {
+                    callback(null);
+                }
+            }).catch(err => {
+                console.error("Lỗi tìm file:", err);
+                callback(null);
+            });
+        }
+
         function createFileOnDrive(folderId, content) {
             const boundary = 'foo_bar_baz';
             const delimiter = "\r\n--" + boundary + "\r\n";
             const close_delimiter = "\r\n--" + boundary + "--";
 
-            // Nhét cái folderId vào mảng parents để Google biết đường quăng file vô đó
             const metadata = {
                 'name': FILE_NAME,
                 'mimeType': 'application/json',
@@ -374,7 +310,6 @@
             });
         }
 
-        // Cập nhật nội dung file (giữ nguyên path cũ vì fileId không đổi)
         function updateFileContent(fileId, content) {
             gapi.client.request({
                 'path': `/upload/drive/v3/files/${fileId}`,
@@ -391,7 +326,7 @@
             });
         }
 
-        // --- LOGIC CORE CỦA APP ---
+        // --- LOGIC CORE CỦA APP VÀ RENDER LỊCH GLASSMORPHISM ---
         function initApp() {
             const now = new Date();
             const currentYear = now.getFullYear();
@@ -440,16 +375,19 @@
                 const dayOfWeek = new Date(year, month - 1, day).getDay();
 
                 cell.innerText = day;
-                cell.className = "p-3 rounded-xl font-bold text-sm transition relative flex items-center justify-center min-h-[44px]";
+                // CSS Kính mờ đồng bộ hệ thống cho từng ô ngày lịch
+                cell.className = "p-3 rounded-xl font-bold text-sm transition-all relative flex items-center justify-center min-h-[44px] cursor-pointer border border-white/5";
                 
                 if(dayOfWeek === 0) {
-                    cell.classList.add('text-red-400', 'bg-slate-800/40');
+                    cell.classList.add('text-rose-300', 'bg-rose-500/10', 'hover:bg-rose-500/20');
                 } else {
-                    cell.classList.add('text-slate-200', 'bg-slate-700/30');
+                    cell.classList.add('text-slate-200', 'bg-white/5', 'hover:bg-white/15');
                 }
 
+                // Hiệu ứng phát sáng Neon cho ngày có chấm công
                 if (dbData[dateStr] && (dbData[dateStr].sang || dbData[dateStr].chieu || dbData[dateStr].trua > 0 || dbData[dateStr].toi > 0)) {
-                    cell.classList.add('bg-emerald-600/30', 'text-emerald-400', 'border', 'border-emerald-500/40');
+                    cell.classList.remove('bg-white/5', 'bg-rose-500/10', 'text-slate-200', 'text-rose-300');
+                    cell.classList.add('bg-gradient-to-br', 'from-emerald-500/30', 'to-teal-500/30', 'text-emerald-300', 'border-emerald-400/40', 'shadow-[0_0_12px_rgba(16,185,129,0.15)]');
                 }
 
                 cell.onclick = () => selectDate(dateStr, day, dayOfWeek);
@@ -562,18 +500,13 @@
             document.getElementById('total-cong-thang').innerText = totalCongThang.toFixed(2);
             document.getElementById('total-gio-thang').innerText = totalGioThang.toFixed(2);
 
-            // --- LOGIC TÍNH LƯƠNG MỚI THÊM VÀO ĐÂY ---
-            // Lấy giá trị lương cơ bản từ ô nhập liệu, xóa bỏ dấu chấm phân tách định dạng để parse về số
             const luongCoBanStr = document.getElementById('luong-co-ban').value.replace(/\./g, "") || "0";
             const luongCoBan = parseInt(luongCoBanStr, 10);
             
-            // Tính toán tổng lương thực nhận
-            //  ĐOẠN CODE SỬA CHUẨN (Chia cho 26 ngày công chuẩn của tháng):
             const ngayCongChuan = 26;
             const tongLuongThang = (luongCoBan / ngayCongChuan) * totalCongThang;
             
-            // Định dạng hiển thị tiền tệ kiểu vi-VN (Ví dụ: 1.250.000 VNĐ)
-            document.getElementById('total-luong-thang').innerText = `${tongLuongThang.toLocaleString('vi-VN')} VNĐ`;
+            document.getElementById('total-luong-thang').innerText = `${Math.round(tongLuongThang).toLocaleString('vi-VN')} VNĐ`;
         }
 
         function formatCurrencyInput(input) {
@@ -582,7 +515,6 @@
             input.value = value;
             localStorage.setItem('luong_cb', value);
 
-            // Gọi tính toán lại tổng lương tháng khi mức lương cơ bản thay đổi
             const now = new Date();
             calculateThangTotals(now.getFullYear(), now.getMonth() + 1);
         }
