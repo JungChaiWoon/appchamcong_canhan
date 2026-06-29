@@ -46,33 +46,41 @@
     <div class="max-w-md mx-auto space-y-5 mt-2 relative z-10">
         
         <!-- HEADER TRONG SUỐT + ICON SVG LUXURY -->
-        <header class="bg-black/40 backdrop-blur-[25px] border border-white/[0.08] p-4 rounded-3xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_15px_35px_rgba(0,0,0,0.5)] flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <!-- Nút lùi 1 tháng -->
-                <button onclick="changeMonth(-1)" class="w-8 h-8 flex items-center justify-center bg-white/[0.03] hover:bg-white/[0.1] active:scale-95 border border-white/[0.08] rounded-xl transition-all cursor-pointer text-slate-300 hover:text-white shadow-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                    </svg>
-                </button>
-                
-                <div class="text-center">
-                    <h1 class="text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 min-w-[100px]" id="current-month-title">Tháng Công</h1>
-                    <p class="text-[10px] text-slate-500 font-semibold tracking-wide">jungchaiwoon2004@gmail.com</p>
+        <header class="bg-black/40 backdrop-blur-[25px] border border-white/[0.08] p-4 rounded-3xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_15px_35px_rgba(0,0,0,0.5)] flex flex-col gap-3">
+            <div class="flex justify-between items-center w-full">
+                <div class="flex items-center gap-4">
+                    <!-- Nút lùi 1 tháng -->
+                    <button onclick="changeMonth(-1)" class="w-8 h-8 flex items-center justify-center bg-white/[0.03] hover:bg-white/[0.1] active:scale-95 border border-white/[0.08] rounded-xl transition-all cursor-pointer text-slate-300 hover:text-white shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
+                    
+                    <div class="text-center">
+                        <h1 class="text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 min-w-[100px]" id="current-month-title">Tháng Công</h1>
+                        <p class="text-[10px] text-slate-500 font-semibold tracking-wide">jungchaiwoon2004@gmail.com</p>
+                    </div>
+                    
+                    <!-- Nút tiến 1 tháng -->
+                    <button onclick="changeMonth(1)" class="w-8 h-8 flex items-center justify-center bg-white/[0.03] hover:bg-white/[0.1] active:scale-95 border border-white/[0.08] rounded-xl transition-all cursor-pointer text-slate-300 hover:text-white shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
                 </div>
-                
-                <!-- Nút tiến 1 tháng -->
-                <button onclick="changeMonth(1)" class="w-8 h-8 flex items-center justify-center bg-white/[0.03] hover:bg-white/[0.1] active:scale-95 border border-white/[0.08] rounded-xl transition-all cursor-pointer text-slate-300 hover:text-white shadow-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                    </svg>
+                <div id="drive-status" class="text-[10px] bg-rose-500/10 text-rose-300 border border-rose-500/20 px-2.5 py-1 rounded-xl font-bold transition-all shadow-[0_0_10px_rgba(244,63,94,0.15)]">Drive: Chưa kết nối</div>
+            </div>
+            
+            <!-- DÒNG MỚI THÊM NÚT HIỆN TẠI -->
+            <div class="border-t border-white/[0.06] pt-2 text-center">
+                <button onclick="goToCurrentDate()" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 px-4 py-1 rounded-full transition-all duration-200 cursor-pointer active:scale-95 shadow-sm">
+                    📍 Hiện tại
                 </button>
             </div>
-            <div id="drive-status" class="text-[10px] bg-rose-500/10 text-rose-300 border border-rose-500/20 px-2.5 py-1 rounded-xl font-bold transition-all shadow-[0_0_10px_rgba(244,63,94,0.15)]">Drive: Chưa kết nối</div>
         </header>
 
-        <!-- KHỐI TỔNG QUÁT THÁNG (3D NEON GLASS EFFECT) -->
-        <div class="bg-black/40 backdrop-blur-[30px] border border-white/[0.08] p-5 rounded-3xl shadow-[inset_0_2px_4px_rgba(255,255,255,0.08),0_20px_40px_rgba(0,0,0,0.6)] space-y-4 relative overflow-hidden">
-            <!-- Bo viền phát sáng mờ nhẹ ở góc tấm kính -->
+        <!-- KHỐI TỔNG QUÁT THÁNG (3D NEON GLASS EFFECT - ĐÃ THÊM KHẤU TRỪ BHXH) -->
+        <div class="bg-black/40 backdrop-blur-[30px] border border-white/[0.08] p-5 rounded-3xl shadow-[inset_0_2px_4px_rgba(255,255,255,0.08),0_20px_40px_rgba(0,0,0,0.6)] space-y-3.5 relative overflow-hidden">
             <div class="absolute inset-0 rounded-3xl border border-cyan-500/10 pointer-events-none"></div>
             
             <div class="grid grid-cols-2 gap-4">
@@ -86,10 +94,27 @@
                 </div>
             </div>
             
-            <!-- Ô hiển thị tổng lương phát sáng Neon rực rỡ -->
-            <div class="border-t border-white/[0.08] pt-4 flex justify-between items-center px-1 relative">
-                <p class="text-xs text-slate-300 uppercase font-bold tracking-wider">Tổng lương dự kiến:</p>
-                <div class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-400 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]" id="total-luong-thang">0 VNĐ</div>
+            <!-- PHẦN HIỂN THỊ CHI TIẾT TIỀN LƯƠNG & KHẤU TRỪ -->
+            <div class="border-t border-white/[0.08] pt-3 space-y-2.5">
+                <div class="flex justify-between items-center px-1">
+                    <p class="text-xs text-slate-400 uppercase font-bold tracking-wider">Tổng lương:</p>
+                    <div class="text-xl font-bold text-slate-200" id="total-luong-thang">0 VNĐ</div>
+                </div>
+                
+                <!-- Input khấu trừ BHXH (Chỉ cho nhập số) -->
+                <div class="flex justify-between items-center px-1 bg-black/15 p-2 rounded-xl border border-white/[0.02]">
+                    <p class="text-xs text-rose-300/90 uppercase font-bold tracking-wider">Khấu trừ BHXH:</p>
+                    <div class="relative w-36">
+                        <input type="text" id="khau-tru-bhxh" value="0" oninput="formatCurrencyInputBHXH(this)" class="w-full bg-black/30 border border-white/[0.08] rounded-lg px-2 py-1 text-xs text-rose-300 font-bold text-right pr-9 focus:outline-none focus:border-rose-400 focus:bg-white/[0.02] transition-all">
+                        <span class="absolute right-2 top-1 text-[10px] text-slate-500 font-bold">VNĐ</span>
+                    </div>
+                </div>
+
+                <!-- Tổng lương dự kiến thực nhận cuối cùng -->
+                <div class="flex justify-between items-center px-1 pt-1.5 border-t border-white/[0.04]">
+                    <p class="text-xs text-slate-300 uppercase font-bold tracking-wider">Tổng lương dự kiến:</p>
+                    <div class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-400 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]" id="real-luong-thang-rec">0 VNĐ</div>
+                </div>
             </div>
         </div>
 
@@ -113,7 +138,6 @@
 
         <!-- PANEL CHI TIẾT NGÀY ĐƯỢC CHỌN (3D GLASS BOX) -->
         <div id="detail-panel" class="bg-black/40 backdrop-blur-[30px] border border-white/[0.1] p-4 rounded-3xl shadow-[inset_0_2px_4px_rgba(255,255,255,0.06),0_20px_40px_rgba(0,0,0,0.5)] space-y-4 hidden relative overflow-hidden">
-            <!-- Bong bóng thủy tinh mini trang trí góc bảng điều khiển -->
             <div class="absolute right-[-10px] bottom-[-10px] w-12 h-12 rounded-full bg-white/[0.02] border border-white/[0.1] shadow-[inset_0_2px_6px_rgba(255,255,255,0.2)] pointer-events-none"></div>
 
             <div class="border-b border-white/[0.06] pb-2 flex justify-between items-center">
@@ -136,16 +160,16 @@
             <div class="space-y-3">
                 <div>
                     <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Tăng ca sáng (phút):</label>
-                    <input type="number" id="ca-sang-mins" value="0" min="0" oninput="updateDayData()" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
+                    <input type="number" id="ca-sang-mins" value="0" min="0" oninput="updateDayData(this)" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Tăng ca trưa (phút):</label>
-                        <input type="number" id="ca-trua" value="0" min="0" oninput="updateDayData()" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
+                        <input type="number" id="ca-trua" value="0" min="0" oninput="updateDayData(this)" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Tăng ca tối (phút):</label>
-                        <input type="number" id="ca-toi" value="0" min="0" oninput="updateDayData()" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
+                        <input type="number" id="ca-toi" value="0" min="0" oninput="updateDayData(this)" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
                     </div>
                 </div>
             </div>
@@ -171,7 +195,7 @@
             </div>
         </div>
 
-        <!-- NÚT LINK SANG TRANG ABOUT Ở CUỐI TRANG -->
+        <!-- NÚT LINK SANG TRANG ABOUT VÀO CUỐI TRANG -->
         <footer class="pt-4 pb-2 text-center">
             <a href="about.html" class="inline-block text-[11px] font-bold text-slate-500 hover:text-cyan-400 bg-white/[0.01] hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/20 px-4 py-1.5 rounded-full transition-all duration-300 cursor-pointer shadow-sm active:scale-95">
                 ℹ️ About this page
@@ -207,6 +231,24 @@
             renderCalendar(viewingYear, viewingMonth);
             calculateThangTotals(viewingYear, viewingMonth);
             document.getElementById('detail-panel').classList.add('hidden');
+        }
+
+        // HÀM MỚI THÊM: NHẢY THẲNG ĐẾN NGÀY HIỆN TẠI VÀ CHỌN SẴN NGÀY ĐÓ
+        function goToCurrentDate() {
+            const now = new Date();
+            viewingYear = now.getFullYear();
+            viewingMonth = now.getMonth() + 1;
+            const currentDay = now.getDate();
+            const currentDayOfWeek = now.getDay();
+            
+            const dateStr = `${viewingYear}-${String(viewingMonth).padStart(2, '0')}-${String(currentDay).padStart(2, '0')}`;
+            
+            document.getElementById('current-month-title').innerText = `Tháng ${viewingMonth} / ${viewingYear}`;
+            renderCalendar(viewingYear, viewingMonth);
+            calculateThangTotals(viewingYear, viewingMonth);
+            
+            // Kích hoạt chọn sẵn ngày hôm nay luôn
+            selectDate(dateStr, currentDay, currentDayOfWeek);
         }
 
         let selectedDateStr = "";
@@ -433,6 +475,10 @@
             if(localStorage.getItem('luong_cb')) {
                 document.getElementById('luong-co-ban').value = localStorage.getItem('luong_cb');
             }
+            // Khôi phục giá trị bảo hiểm xã hội đã lưu
+            if(localStorage.getItem('bhxh_kt')) {
+                document.getElementById('khau-tru-bhxh').value = localStorage.getItem('bhxh_kt');
+            }
 
             const savedData = localStorage.getItem('db_cham_cong');
             if(savedData) dbData = JSON.parse(savedData);
@@ -455,7 +501,6 @@
             if (hasChanged) localStorage.setItem('db_cham_cong', JSON.stringify(dbData));
         }
 
-        // --- RENDER GRID LỊCH CHUẨN NEON GLASS EFFECT 3D ---
         function renderCalendar(year, month) {
             const grid = document.getElementById('calendar-grid');
             grid.innerHTML = "";
@@ -473,7 +518,6 @@
                 const dayOfWeek = new Date(year, month - 1, day).getDay();
 
                 cell.innerText = day;
-                // Tạo viền 3D dầy đổ bóng khối cho ô ngày thường
                 cell.className = "p-3 rounded-2xl font-bold text-sm transition-all relative flex items-center justify-center min-h-[44px] cursor-pointer border border-white/[0.04] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_10px_rgba(0,0,0,0.3)] bg-white/[0.02]";
                 
                 if(dayOfWeek === 0) {
@@ -482,7 +526,6 @@
                     cell.classList.add('text-slate-300', 'hover:bg-white/[0.08]');
                 }
 
-                // HIỆU ỨNG TIA SÁNG NEON PHÁT SÁNG DROP-SHADOW MẠNH MẼ THEO ẢNH BD5C20 KHI CÓ CÔNG
                 if (dbData[dateStr] && (dbData[dateStr].sang || dbData[dateStr].chieu || dbData[dateStr].sangMins > 0 || dbData[dateStr].trua > 0 || dbData[dateStr].toi > 0)) {
                     cell.classList.remove('bg-white/[0.02]', 'bg-rose-500/5', 'text-slate-300', 'text-rose-300', 'border-white/[0.04]', 'border-rose-500/10');
                     cell.classList.add('bg-black/40', 'text-emerald-300', 'border-emerald-400', 'shadow-[0_0_18px_rgba(52,211,153,0.5),inset_0_1px_2px_rgba(255,255,255,0.2)]');
@@ -527,9 +570,11 @@
 
             const sang = document.getElementById('ca-sang').checked;
             const chieu = document.getElementById('ca-chieu').checked;
-            const sangMins = parseInt(document.getElementById('ca-sang-mins').value) || 0;
-            const truaMins = parseInt(document.getElementById('ca-trua').value) || 0;
-            const toiMins = parseInt(document.getElementById('ca-toi').value) || 0;
+            
+            // LẤY DỮ LIỆU ĐÃ ĐƯỢC LÀM TRÒN XUỐNG MỖI 30 PHÚT ĐỂ TÍNH TOÁN
+            const sangMins = Math.floor((parseInt(document.getElementById('ca-sang-mins').value) || 0) / 30) * 30;
+            const truaMins = Math.floor((parseInt(document.getElementById('ca-trua').value) || 0) / 30) * 30;
+            const toiMins = Math.floor((parseInt(document.getElementById('ca-toi').value) || 0) / 30) * 30;
 
             let totalHours = 0;
 
@@ -556,8 +601,17 @@
             return { cong: totalCong, gio: totalHours };
         }
 
-        function updateDayData() {
+        // CÓ SỬA ĐỔI: TỰ ĐỘNG LÀM TRÒN XUỐNG KHI NGƯỜI DÙNG NHẬP (TRÊN TEXTBOX)
+        function updateDayData(inputElement) {
             if(!selectedDateStr) return;
+
+            // Nếu hàm được gọi từ sự kiện gõ textbox, tiến hành làm tròn xuống cơ số 30 phút ngay tại chỗ
+            if(inputElement && inputElement.type === 'number') {
+                let currentVal = parseInt(inputElement.value) || 0;
+                if(currentVal > 0) {
+                    inputElement.value = Math.floor(currentVal / 30) * 30;
+                }
+            }
 
             const sang = document.getElementById('ca-sang').checked;
             const chieu = document.getElementById('ca-chieu').checked;
@@ -573,6 +627,7 @@
             calculateThangTotals(parseInt(parts[0]), parseInt(parts[1]));
         }
 
+        // CÓ SỬA ĐỔI: TÍNH THÊM KHẤU TRỪ BHXH ĐỂ RA TỔNG LƯƠNG DỰ KIẾN CUỐI CÙNG
         function calculateThangTotals(year, month) {
             let totalGioThang = 0;
 
@@ -610,7 +665,16 @@
             const ngayCongChuan = 26;
             const tongLuongThang = (luongCoBan / ngayCongChuan) * totalCongThang;
             
+            // 1. Gán giá trị vào dòng "Tổng Lương"
             document.getElementById('total-luong-thang').innerText = `${Math.round(tongLuongThang).toLocaleString('vi-VN')} VNĐ`;
+
+            // 2. Lấy giá trị ô Khấu Trừ BHXH
+            const bhxhStr = document.getElementById('khau-tru-bhxh').value.replace(/\./g, "") || "0";
+            const khauTruBHXH = parseInt(bhxhStr, 10);
+
+            // 3. Tính toán Tổng lương dự kiến thực nhận sau khi trừ
+            const tongLuongDuKienThucNhan = Math.round(tongLuongThang) - khauTruBHXH;
+            document.getElementById('real-luong-thang-rec').innerText = `${tongLuongDuKienThucNhan.toLocaleString('vi-VN')} VNĐ`;
         }
 
         function formatCurrencyInput(input) {
@@ -619,8 +683,18 @@
             input.value = value;
             localStorage.setItem('luong_cb', value);
 
-            const now = new Date();
-            calculateThangTotals(now.getFullYear(), now.getMonth() + 1);
+            calculateThangTotals(viewingYear, viewingMonth);
+        }
+
+        // HÀM MỚI THÊM: Định dạng tiền tệ cho ô BHXH (Chỉ cho nhập số, lọc chữ cái)
+        function formatCurrencyInputBHXH(input) {
+            let value = input.value.replace(/\D/g, "");
+            if(value) value = parseInt(value, 10).toLocaleString('vi-VN');
+            else value = "0";
+            input.value = value;
+            localStorage.setItem('bhxh_kt', value);
+
+            calculateThangTotals(viewingYear, viewingMonth);
         }
     </script>
 </body>
