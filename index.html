@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tính Công Cá Nhân</title>
+    <!-- Nhúng Tailwind CSS bản mới nhất -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://accounts.google.com/gsi/client"></script>
     <style>
-        /* Hiệu ứng dải lụa màu chuyển động ngầm phía sau tấm kính giống iOS/HyperOS */
         @keyframes liquid-ambient {
             0% { transform: translate(0px, 0px) scale(1); }
             33% { transform: translate(30px, -50px) scale(1.1); }
             66% { transform: translate(-20px, 20px) scale(0.9); }
             100% { transform: translate(0px, 0px) scale(1); }
         }
-        /* Hiệu ứng trôi nổi bồng bềnh của các bong bóng thủy tinh 3D */
         @keyframes bubble-float {
             0% { transform: translateY(0px) rotate(0deg); }
             100% { transform: translateY(-30px) rotate(360deg); }
@@ -26,22 +25,24 @@
         .bubble-1 { animation: bubble-float 8s infinite alternate ease-in-out; }
         .bubble-2 { animation: bubble-float 12s infinite alternate-reverse ease-in-out; }
 
-        /* Tối ưu thanh cuộn mượt mà */
         ::-webkit-scrollbar { width: 0px; }
     </style>
 </head>
 <body class="bg-[#080b11] text-slate-100 font-sans p-4 antialiased min-h-screen select-none pb-12 relative overflow-x-hidden">
 
+    <!-- HỆ THỐNG LIQUID VÀ BONG BÓNG THỦY TINH ĐỔ BÓNG 3D PHÍA SAU KÍNH -->
     <div class="absolute top-[-5%] left-[-10%] w-[300px] h-[300px] bg-purple-600/20 rounded-full blur-[100px] pointer-events-none bg-blur-blob-1"></div>
     <div class="absolute top-[40%] right-[-15%] w-[350px] h-[350px] bg-cyan-600/15 rounded-full blur-[120px] pointer-events-none bg-blur-blob-2"></div>
     <div class="absolute bottom-[-5%] left-[-5%] w-[280px] h-[280px] bg-emerald-600/15 rounded-full blur-[100px] pointer-events-none bg-blur-blob-1"></div>
 
+    <!-- CÁC BONG BÓNG GLASS ĐA KÍCH THƯỚC ĐỔ BÓNG KHỐI -->
     <div class="bubble-1 absolute top-[12%] right-[8%] w-16 h-16 rounded-full bg-white/[0.02] border border-white/[0.15] shadow-[inset_0_4px_12px_rgba(255,255,255,0.15),0_10px_25px_rgba(0,0,0,0.4)] backdrop-blur-[4px] pointer-events-none"></div>
     <div class="bubble-2 absolute bottom-[35%] left-[4%] w-24 h-24 rounded-full bg-white/[0.01] border border-white/[0.1] shadow-[inset_0_6px_16px_rgba(255,255,255,0.1),0_15px_35px_rgba(0,0,0,0.5)] backdrop-blur-[2px] pointer-events-none"></div>
     <div class="bubble-1 absolute bottom-[8%] right-[5%] w-12 h-12 rounded-full bg-white/[0.03] border border-white/[0.2] shadow-[inset_0_4px_8px_rgba(255,255,255,0.2),0_8px_20px_rgba(0,0,0,0.4)] backdrop-blur-[3px] pointer-events-none"></div>
 
     <div class="max-w-md mx-auto space-y-5 mt-2 relative z-10">
         
+        <!-- HEADER TRONG SUỐT + ICON SVG LUXURY -->
         <header class="bg-black/40 backdrop-blur-[25px] border border-white/[0.08] p-4 rounded-3xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_15px_35px_rgba(0,0,0,0.5)] flex flex-col gap-3">
             <div class="flex justify-between items-center w-full">
                 <div class="flex items-center gap-4">
@@ -72,12 +73,16 @@
             </div>
         </header>
 
+        <!-- KHỐI TỔNG QUÁT THÁNG (3D NEON GLASS EFFECT) -->
         <div class="bg-black/40 backdrop-blur-[30px] border border-white/[0.08] p-5 rounded-3xl shadow-[inset_0_2px_4px_rgba(255,255,255,0.08),0_20px_40px_rgba(0,0,0,0.6)] space-y-3.5 relative overflow-hidden">
             <div class="absolute inset-0 rounded-3xl border border-cyan-500/10 pointer-events-none"></div>
             
             <div class="grid grid-cols-2 gap-4">
                 <div class="bg-black/30 border border-white/[0.04] p-3 rounded-2xl shadow-[inset_0_1px_5px_rgba(0,0,0,0.5)]">
-                    <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Số công trong tháng</p>
+                    <div class="flex justify-between items-center">
+                        <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Số công tháng</p>
+                        <span class="text-[9px] text-slate-500 font-medium" id="chuan-cong-label">Chuẩn: 26c</span>
+                    </div>
                     <div class="text-3xl font-black mt-1 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 drop-shadow-[0_2px_8px_rgba(52,211,153,0.3)]" id="total-cong-thang">0.0</div>
                 </div>
                 <div class="bg-black/30 border border-white/[0.04] p-3 rounded-2xl shadow-[inset_0_1px_5px_rgba(0,0,0,0.5)]">
@@ -107,6 +112,7 @@
             </div>
         </div>
 
+        <!-- CÁC NÚT ĐỒNG BỘ DATA VIA DRIVE -->
         <div class="bg-black/30 backdrop-blur-[20px] border border-white/[0.06] p-3 rounded-2xl shadow-[0_10px_25px_rgba(0,0,0,0.4)] grid grid-cols-2 gap-3">
             <button onclick="uploadToDrive()" id="btn-upload" class="gravity-btn bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 border border-blue-500/25 font-bold p-2.5 rounded-xl text-xs flex items-center justify-center gap-1 opacity-50 cursor-not-allowed shadow-sm will-change-transform duration-200 ease-out hover:border-blue-400 hover:text-white" disabled>
                 <span class="text-base mr-1.5 pointer-events-none">📤</span> Đẩy Data lên Drive
@@ -116,6 +122,7 @@
             </button>
         </div>
 
+        <!-- LỊCH THÁNG (NEON GLASS GRID) -->
         <div class="bg-black/40 backdrop-blur-[30px] border border-white/[0.08] p-4 rounded-3xl shadow-[inset_0_1px_3px_rgba(255,255,255,0.05),0_15px_35px_rgba(0,0,0,0.5)]">
             <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-slate-400 mb-3 tracking-wide">
                 <div class="text-rose-400/80">CN</div><div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div>T7</div>
@@ -123,14 +130,33 @@
             <div class="grid grid-cols-7 gap-2 text-center" id="calendar-grid"></div>
         </div>
 
+        <!-- PANEL CHI TIẾT NGÀY ĐƯỢC CHỌN (3D GLASS BOX) -->
         <div id="detail-panel" class="bg-black/40 backdrop-blur-[30px] border border-white/[0.1] p-4 rounded-3xl shadow-[inset_0_2px_4px_rgba(255,255,255,0.06),0_20px_40px_rgba(0,0,0,0.5)] space-y-4 hidden relative overflow-hidden">
             <div class="absolute right-[-10px] bottom-[-10px] w-12 h-12 rounded-full bg-white/[0.02] border border-white/[0.1] shadow-[inset_0_2px_6px_rgba(255,255,255,0.2)] pointer-events-none"></div>
 
-            <div class="border-b border-white/[0.06] pb-2 flex justify-between items-center">
+            <!-- Header ngày được chọn -->
+            <div class="border-b border-white/[0.06] pb-2">
                 <h3 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-300 text-sm" id="selected-date-label">Ngày</h3>
-                <span id="holiday-badge" class="hidden bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold shadow-[0_0_8px_rgba(244,63,94,0.3)]">Ngày Lễ (x2)</span>
+                
+                <!-- BỘ 3 CHECKBOX HỆ SỐ LƯƠNG (X2, X3, X4) ĐỘC QUYỀN -->
+                <div class="flex items-center gap-4 mt-2">
+                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Hệ số:</span>
+                    <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-300 hover:text-cyan-300">
+                        <input type="checkbox" name="rate-group" value="2" id="rate-x2" onchange="handleMultiplierSelect(this)" class="w-4 h-4 rounded accent-cyan-400 cursor-pointer">
+                        <span>x2</span>
+                    </label>
+                    <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-300 hover:text-amber-300">
+                        <input type="checkbox" name="rate-group" value="3" id="rate-x3" onchange="handleMultiplierSelect(this)" class="w-4 h-4 rounded accent-amber-400 cursor-pointer">
+                        <span>x3</span>
+                    </label>
+                    <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-300 hover:text-rose-300">
+                        <input type="checkbox" name="rate-group" value="4" id="rate-x4" onchange="handleMultiplierSelect(this)" class="w-4 h-4 rounded accent-rose-400 cursor-pointer">
+                        <span>x4</span>
+                    </label>
+                </div>
             </div>
 
+            <!-- Ca chuẩn -->
             <div class="grid grid-cols-2 gap-3">
                 <label class="flex items-center justify-between p-3 bg-black/20 rounded-xl border border-white/[0.04] cursor-pointer hover:bg-white/[0.05] transition-all shadow-inner">
                     <span class="text-xs font-medium text-slate-300">Ca Sáng (0.5)</span>
@@ -142,19 +168,20 @@
                 </label>
             </div>
 
+            <!-- Cụm 3 ô tăng ca (Đổi oninput thành onchange để fix lỗi nhập bàn phím) -->
             <div class="space-y-3">
                 <div>
                     <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Tăng ca sáng (phút):</label>
-                    <input type="number" id="ca-sang-mins" value="0" min="0" oninput="updateDayData(this)" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
+                    <input type="number" id="ca-sang-mins" value="0" min="0" onchange="handleOvertimeBlur(this)" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Tăng ca trưa (phút):</label>
-                        <input type="number" id="ca-trua" value="0" min="0" oninput="updateDayData(this)" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
+                        <input type="number" id="ca-trua" value="0" min="0" onchange="handleOvertimeBlur(this)" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Tăng ca tối (phút):</label>
-                        <input type="number" id="ca-toi" value="0" min="0" oninput="updateDayData(this)" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
+                        <input type="number" id="ca-toi" value="0" min="0" onchange="handleOvertimeBlur(this)" class="w-full bg-black/30 border border-white/[0.06] rounded-xl p-2.5 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 focus:bg-white/[0.02] transition-all shadow-inner">
                     </div>
                 </div>
             </div>
@@ -171,6 +198,7 @@
             </div>
         </div>
 
+        <!-- CẤU HÌNH LƯƠNG CƠ BẢN -->
         <div class="bg-black/30 backdrop-blur-[25px] border border-white/[0.06] p-4 rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.4)]">
             <label class="block text-[10px] text-slate-400 mb-1.5 font-bold uppercase tracking-wider">Cấu hình lương cơ bản:</label>
             <div class="relative">
@@ -179,6 +207,7 @@
             </div>
         </div>
 
+        <!-- NÚT LINK SANG TRANG ABOUT VÀO CUỐI TRANG -->
         <footer class="pt-4 pb-2 text-center">
             <a href="about.html" class="inline-block text-[11px] font-bold text-slate-500 hover:text-cyan-400 bg-white/[0.01] hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/20 px-4 py-1.5 rounded-full transition-all duration-300 cursor-pointer shadow-sm active:scale-95">
                 ℹ️ About this page
@@ -198,6 +227,27 @@
 
         let viewingYear = new Date().getFullYear();
         let viewingMonth = new Date().getMonth() + 1;
+        let selectedDateStr = "";
+
+        window.onload = function() {
+            gapi.load('client', initGapiClient);
+            initTokenClient();
+            initApp();
+            initGravityButtons();
+        };
+
+        // TÍNH TOÁN SỐ NGÀY CÔNG TIÊU CHUẨN TỐI ĐA TRONG THÁNG (TRỪ CÁC NGÀY CHỦ NHẬT)
+        function getStandardWorkingDays(year, month) {
+            const totalDays = new Date(year, month, 0).getDate();
+            let standardDays = 0;
+            for (let day = 1; day <= totalDays; day++) {
+                const dayOfWeek = new Date(year, month - 1, day).getDay();
+                if (dayOfWeek !== 0) { // Không phải Chủ Nhật
+                    standardDays++;
+                }
+            }
+            return standardDays;
+        }
 
         function changeMonth(direction) {
             viewingMonth += direction;
@@ -230,45 +280,18 @@
             selectDate(dateStr, currentDay, currentDayOfWeek);
         }
 
-        let selectedDateStr = "";
-        const VIETNAM_HOLIDAYS = ['01-01', '30-04', '01-05', '02-09'];
-
-        window.onload = function() {
-            gapi.load('client', initGapiClient);
-            initTokenClient();
-            initApp();
-            initGravityButtons(); // KHỞI ĐỘNG HIỆU ỨNG TRỌNG LỰC CHO BUTTON
-        };
-
-        // --- HÀM TRIỂN KHAI LOGIC TRỌNG LỰC NAM CHÂM (GRAVITY EFFECT) ---
         function initGravityButtons() {
             const buttons = document.querySelectorAll('.gravity-btn');
-            
             buttons.forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
-                    // Nếu nút đang bị disabled (Chưa kết nối drive) thì bỏ qua hiệu ứng hút chuột
                     if(btn.disabled) return;
-
                     const rect = btn.getBoundingClientRect();
-                    // Tính khoảng cách lệch giữa con trỏ chuột và tâm vật lý của button
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
-                    
-                    // Thực hiện lực hút nghiêng và kéo lệch khối (Hút tối đa 15px theo hướng chuột)
                     btn.style.transform = `translate(${x * 0.25}px, ${y * 0.35}px) scale(1.02)`;
-                    
-                    // Tạo bóng đổ neon chuyển động theo hướng chuột hút cường độ mạnh
-                    if(btn.id === 'btn-upload') {
-                        btn.style.shadow = '0 10px 25px rgba(59,130,246,0.45)';
-                    } else {
-                        btn.style.shadow = '0 10px 25px rgba(20,184,166,0.45)';
-                    }
                 });
-                
-                // Nhả chuột ra khỏi vùng của nút, trả vật thể về vị trí cân bằng 3D ban đầu
                 btn.addEventListener('mouseleave', () => {
                     btn.style.transform = 'translate(0px, 0px) scale(1)';
-                    btn.style.shadow = 'none';
                 });
             });
         }
@@ -276,9 +299,7 @@
         function initGapiClient() {
             gapi.client.init({}).then(() => {
                 gapi.client.load('https://www.googleapis.com/discovery/v1/apis/drive/v3/rest');
-            }).catch(err => {
-                console.error("Lỗi init GAPI client:", err);
-            });
+            }).catch(err => console.error("Lỗi init GAPI client:", err));
         }
 
         function initTokenClient() {
@@ -287,25 +308,19 @@
                 scope: SCOPES,
                 callback: (tokenResponse) => {
                     if (tokenResponse.error !== undefined) {
-                        alert("Lỗi xác thực từ Google: " + tokenResponse.error);
+                        alert("Lỗi xác thực: " + tokenResponse.error);
                         return;
                     }
                     accessToken = tokenResponse.access_token;
-                    
                     document.getElementById('drive-status').innerText = "Drive: Đã Kết Nối ✅";
                     document.getElementById('drive-status').className = "text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-xl font-bold shadow-[0_0_10px_rgba(16,185,129,0.2)]";
                     
-                    // Tháp sáng viền neon khi mở khóa nút bấm để kích hoạt Gravity
                     document.querySelectorAll('.gravity-btn').forEach(btn => {
                         btn.disabled = false;
                         btn.classList.remove('opacity-50', 'cursor-not-allowed');
-                        if(btn.id === 'btn-upload') btn.classList.add('hover:shadow-[0_0_20px_rgba(59,130,246,0.35)]');
-                        else btn.classList.add('hover:shadow-[0_0_20px_rgba(20,184,166,0.35)]');
                     });
                 },
             });
-            
-            // Mở khóa sẵn local cho phép tương tác ban đầu
             document.querySelectorAll('.gravity-btn').forEach(btn => {
                 btn.disabled = false;
                 btn.classList.remove('opacity-50', 'cursor-not-allowed');
@@ -325,18 +340,11 @@
             checkAuth(() => {
                 document.getElementById('btn-upload').innerHTML = '<span class="text-base mr-1.5">⏳</span> Đang đẩy...';
                 getFolderId((folderId) => {
-                    if (!folderId) {
-                        alert("Lỗi xử lý thư mục!");
-                        document.getElementById('btn-upload').innerHTML = '<span class="text-base mr-1.5">📤</span> Đẩy Data lên Drive';
-                        return;
-                    }
+                    if (!folderId) return;
                     findFileOnDrive(folderId, (fileId) => {
                         const content = localStorage.getItem('db_cham_cong') || '{}';
-                        if (fileId) {
-                            updateFileContent(fileId, content);
-                        } else {
-                            createFileOnDrive(folderId, content);
-                        }
+                        if (fileId) updateFileContent(fileId, content);
+                        else createFileOnDrive(folderId, content);
                     });
                 });
             });
@@ -346,30 +354,18 @@
             checkAuth(() => {
                 document.getElementById('btn-download').innerHTML = '<span class="text-base mr-1.5">⏳</span> Đang kéo...';
                 getFolderId((folderId) => {
-                    if (!folderId) {
-                        alert("Lỗi xử lý thư mục!");
-                        document.getElementById('btn-download').innerHTML = '<span class="text-base mr-1.5">📥</span> Kéo Data từ Drive về';
-                        return;
-                    }
+                    if (!folderId) return;
                     findFileOnDrive(folderId, (fileId) => {
                         if (!fileId) {
-                            alert("Không tìm thấy file backup nào trong thư mục AppChamCong!");
-                            document.getElementById('btn-download').innerHTML = '<span class="text-base mr-1.5">📥</span> Kéo Data từ Drive về';
+                            alert("Không tìm thấy file backup!");
                             return;
                         }
-                        gapi.client.drive.files.get({
-                            fileId: fileId,
-                            alt: 'media'
-                        }).then(response => {
+                        gapi.client.drive.files.get({ fileId: fileId, alt: 'media' }).then(response => {
                             if(response.body) {
                                 localStorage.setItem('db_cham_cong', response.body);
-                                alert("Kéo dữ liệu thành công! App sẽ tự động reload.");
+                                alert("Kéo dữ liệu thành công!");
                                 location.reload();
                             }
-                        }).catch(err => {
-                            console.error(err);
-                            alert("Lỗi khi tải file!");
-                            document.getElementById('btn-download').innerHTML = '<span class="text-base mr-1.5">📥</span> Kéo Data từ Drive về';
                         });
                     });
                 });
@@ -383,25 +379,13 @@
                 spaces: 'drive'
             }).then(response => {
                 const files = response.result.files;
-                if (files && files.length > 0) {
-                    callback(files[0].id);
-                } else {
+                if (files && files.length > 0) callback(files[0].id);
+                else {
                     gapi.client.drive.files.create({
-                        resource: {
-                            name: 'AppChamCong',
-                            mimeType: 'application/vnd.google-apps.folder'
-                        },
+                        resource: { name: 'AppChamCong', mimeType: 'application/vnd.google-apps.folder' },
                         fields: 'id'
-                    }).then(folderResponse => {
-                        callback(folderResponse.result.id);
-                    }).catch(err => {
-                        console.error("Lỗi tạo folder:", err);
-                        alert("Không thể tạo thư mục AppChamCong trên Drive!");
-                    });
+                    }).then(res => callback(res.result.id));
                 }
-            }).catch(err => {
-                console.error("Lỗi tìm folder:", err);
-                callback(null);
             });
         }
 
@@ -412,14 +396,7 @@
                 spaces: 'drive'
             }).then(response => {
                 const files = response.result.files;
-                if (files && files.length > 0) {
-                    callback(files[0].id);
-                } else {
-                    callback(null);
-                }
-            }).catch(err => {
-                console.error("Lỗi tìm file:", err);
-                callback(null);
+                callback(files && files.length > 0 ? files[0].id : null);
             });
         }
 
@@ -427,52 +404,29 @@
             const boundary = 'foo_bar_baz';
             const delimiter = "\r\n--" + boundary + "\r\n";
             const close_delimiter = "\r\n--" + boundary + "--";
-
-            const metadata = {
-                'name': FILE_NAME,
-                'mimeType': 'application/json',
-                'parents': [folderId]
-            };
-
-            const multipartRequestBody =
-                delimiter +
-                'Content-Type: application/json; charset=UTF-8\r\n\r\n' +
-                JSON.stringify(metadata) +
-                delimiter +
-                'Content-Type: application/json\r\n\r\n' +
-                content +
-                close_delimiter;
+            const metadata = { name: FILE_NAME, mimeType: 'application/json', parents: [folderId] };
+            const multipartRequestBody = delimiter + 'Content-Type: application/json; charset=UTF-8\r\n\r\n' + JSON.stringify(metadata) + delimiter + 'Content-Type: application/json\r\n\r\n' + content + close_delimiter;
 
             gapi.client.request({
-                'path': '/upload/drive/v3/files',
-                'method': 'POST',
-                'params': {'uploadType': 'multipart'},
-                'headers': {
-                    'Content-Type': 'multipart/related; boundary="' + boundary + '"'
-                },
-                'body': multipartRequestBody
+                path: '/upload/drive/v3/files',
+                method: 'POST',
+                params: {'uploadType': 'multipart'},
+                headers: {'Content-Type': 'multipart/related; boundary="' + boundary + '"'},
+                body: multipartRequestBody
             }).then(() => {
-                alert("Đã tạo mới và đồng bộ thành công vào thư mục AppChamCong!");
-                document.getElementById('btn-upload').innerHTML = '<span class="text-base mr-1.5">📤</span> Đẩy Data lên Drive';
-            }).catch(err => {
-                console.error(err);
-                alert("Lỗi khi tạo file mới!");
+                alert("Đã đồng bộ lên Drive!");
                 document.getElementById('btn-upload').innerHTML = '<span class="text-base mr-1.5">📤</span> Đẩy Data lên Drive';
             });
         }
 
         function updateFileContent(fileId, content) {
             gapi.client.request({
-                'path': `/upload/drive/v3/files/${fileId}`,
-                'method': 'PATCH',
-                'params': {'uploadType': 'media'},
-                'body': content
+                path: `/upload/drive/v3/files/${fileId}`,
+                method: 'PATCH',
+                params: {'uploadType': 'media'},
+                body: content
             }).then(() => {
-                alert("Đã cập nhật dữ liệu mới nhất vào thư mục AppChamCong!");
-                document.getElementById('btn-upload').innerHTML = '<span class="text-base mr-1.5">📤</span> Đẩy Data lên Drive';
-            }).catch(err => {
-                console.error(err);
-                alert("Lỗi khi cập nhật file!");
+                alert("Đã cập nhật dữ liệu Drive!");
                 document.getElementById('btn-upload').innerHTML = '<span class="text-base mr-1.5">📤</span> Đẩy Data lên Drive';
             });
         }
@@ -484,18 +438,13 @@
 
             document.getElementById('current-month-title').innerText = `Tháng ${viewingMonth} / ${viewingYear}`;
 
-            if(localStorage.getItem('luong_cb')) {
-                document.getElementById('luong-co-ban').value = localStorage.getItem('luong_cb');
-            }
-            if(localStorage.getItem('bhxh_kt')) {
-                document.getElementById('khau-tru-bhxh').value = localStorage.getItem('bhxh_kt');
-            }
+            if(localStorage.getItem('luong_cb')) document.getElementById('luong-co-ban').value = localStorage.getItem('luong_cb');
+            if(localStorage.getItem('bhxh_kt')) document.getElementById('khau-tru-bhxh').value = localStorage.getItem('bhxh_kt');
 
             const savedData = localStorage.getItem('db_cham_cong');
             if(savedData) dbData = JSON.parse(savedData);
 
             cleanOldYearData(viewingYear);
-            
             renderCalendar(viewingYear, viewingMonth);
             calculateThangTotals(viewingYear, viewingMonth);
         }
@@ -503,8 +452,7 @@
         function cleanOldYearData(currentYear) {
             let hasChanged = false;
             for (let dateKey in dbData) {
-                const yearOfKey = parseInt(dateKey.split('-')[0]);
-                if (yearOfKey < currentYear) {
+                if (parseInt(dateKey.split('-')[0]) < currentYear) {
                     delete dbData[dateKey];
                     hasChanged = true;
                 }
@@ -519,9 +467,7 @@
             const firstDayIndex = new Date(year, month - 1, 1).getDay();
             const totalDays = new Date(year, month, 0).getDate();
 
-            for (let i = 0; i < firstDayIndex; i++) {
-                grid.appendChild(document.createElement('div'));
-            }
+            for (let i = 0; i < firstDayIndex; i++) grid.appendChild(document.createElement('div'));
 
             for (let day = 1; day <= totalDays; day++) {
                 const cell = document.createElement('button');
@@ -531,11 +477,8 @@
                 cell.innerText = day;
                 cell.className = "p-3 rounded-2xl font-bold text-sm transition-all relative flex items-center justify-center min-h-[44px] cursor-pointer border border-white/[0.04] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_10px_rgba(0,0,0,0.3)] bg-white/[0.02]";
                 
-                if(dayOfWeek === 0) {
-                    cell.classList.add('text-rose-300', 'bg-rose-500/5', 'border-rose-500/10', 'hover:bg-rose-500/15');
-                } else {
-                    cell.classList.add('text-slate-300', 'hover:bg-white/[0.08]');
-                }
+                if(dayOfWeek === 0) cell.classList.add('text-rose-300', 'bg-rose-500/5', 'border-rose-500/10', 'hover:bg-rose-500/15');
+                else cell.classList.add('text-slate-300', 'hover:bg-white/[0.08]');
 
                 if (dbData[dateStr] && (dbData[dateStr].sang || dbData[dateStr].chieu || dbData[dateStr].sangMins > 0 || dbData[dateStr].trua > 0 || dbData[dateStr].toi > 0)) {
                     cell.classList.remove('bg-white/[0.02]', 'bg-rose-500/5', 'text-slate-300', 'text-rose-300', 'border-white/[0.04]', 'border-rose-500/10');
@@ -547,33 +490,67 @@
             }
         }
 
+        // XỬ LÝ CHECKBOX HỆ SỐ LƯƠNG: CHỈ ĐƯỢC CHỌN 1 TRONG 3 (ĐỘC QUYỀN)
+        function handleMultiplierSelect(currentCheckbox) {
+            const checkboxes = document.querySelectorAll('input[name="rate-group"]');
+            if (currentCheckbox.checked) {
+                checkboxes.forEach(cb => {
+                    if (cb !== currentCheckbox) cb.checked = false;
+                });
+            }
+            updateDayData();
+        }
+
+        function getSelectedMultiplier() {
+            const checked = document.querySelector('input[name="rate-group"]:checked');
+            return checked ? parseInt(checked.value) : 1;
+        }
+
         function selectDate(dateStr, day, dayOfWeek) {
             selectedDateStr = dateStr;
             const daysMapping = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
             document.getElementById('selected-date-label').innerText = `Ngày ${String(day).padStart(2, '0')}/${dateStr.split('-')[1]}/${dateStr.split('-')[0]} (${daysMapping[dayOfWeek]})`;
             
-            const monthDayStr = `${dateStr.split('-')[2]}-${dateStr.split('-')[1]}`;
-            const isHoliday = VIETNAM_HOLIDAYS.includes(monthDayStr);
-            
-            if(isHoliday) document.getElementById('holiday-badge').classList.remove('hidden');
-            else document.getElementById('holiday-badge').classList.add('hidden');
+            const isChunhat = (dayOfWeek === 0);
 
+            // NẠP DỮ LIỆU CŨ HOẶC KHỞI TẠO MỚI
             if(dbData[dateStr]) {
                 document.getElementById('ca-sang').checked = dbData[dateStr].sang || false;
                 document.getElementById('ca-chieu').checked = dbData[dateStr].chieu || false;
                 document.getElementById('ca-sang-mins').value = dbData[dateStr].sangMins || 0;
                 document.getElementById('ca-trua').value = dbData[dateStr].trua || 0;
                 document.getElementById('ca-toi').value = dbData[dateStr].toi || 0;
+                
+                const mult = dbData[dateStr].multiplier || (isChunhat ? 2 : 1);
+                document.getElementById('rate-x2').checked = (mult === 2);
+                document.getElementById('rate-x3').checked = (mult === 3);
+                document.getElementById('rate-x4').checked = (mult === 4);
             } else {
                 document.getElementById('ca-sang').checked = false;
                 document.getElementById('ca-chieu').checked = false;
                 document.getElementById('ca-sang-mins').value = 0;
                 document.getElementById('ca-trua').value = 0;
                 document.getElementById('ca-toi').value = 0;
+
+                // Mặc định Chủ Nhật tự động check x2, ngày thường không check
+                document.getElementById('rate-x2').checked = isChunhat;
+                document.getElementById('rate-x3').checked = false;
+                document.getElementById('rate-x4').checked = false;
             }
 
             document.getElementById('detail-panel').classList.remove('hidden');
             calculateDayTotals();
+        }
+
+        // KHI NGƯỜI DÙNG NHẬP XONG VÀ RỜI KHỎI TEXTBOX TĂNG CA: LÀM TRÒN XUỐNG 30 PHÚT
+        function handleOvertimeBlur(inputElement) {
+            let val = parseInt(inputElement.value) || 0;
+            if (val > 0) {
+                inputElement.value = Math.floor(val / 30) * 30;
+            } else {
+                inputElement.value = 0;
+            }
+            updateDayData();
         }
 
         function calculateDayTotals() {
@@ -581,29 +558,21 @@
 
             const sang = document.getElementById('ca-sang').checked;
             const chieu = document.getElementById('ca-chieu').checked;
-            
-            const sangMins = Math.floor((parseInt(document.getElementById('ca-sang-mins').value) || 0) / 30) * 30;
-            const truaMins = Math.floor((parseInt(document.getElementById('ca-trua').value) || 0) / 30) * 30;
-            const toiMins = Math.floor((parseInt(document.getElementById('ca-toi').value) || 0) / 30) * 30;
+            const sangMins = parseInt(document.getElementById('ca-sang-mins').value) || 0;
+            const truaMins = parseInt(document.getElementById('ca-trua').value) || 0;
+            const toiMins = parseInt(document.getElementById('ca-toi').value) || 0;
 
-            let totalHours = 0;
+            let baseHours = 0;
+            if(sang) baseHours += 4;
+            if(chieu) baseHours += 4;
+            baseHours += (sangMins / 60);
+            baseHours += (truaMins / 60);
+            baseHours += (toiMins / 60);
 
-            if(sang) totalHours += 4;
-            if(chieu) totalHours += 4;
-            totalHours += (sangMins / 60);
-            totalHours += (truaMins / 60);
-            totalHours += (toiMins / 60);
-
-            const dateObj = new Date(selectedDateStr);
-            const isChunhat = (dateObj.getDay() === 0);
-            const monthDayStr = `${selectedDateStr.split('-')[2]}-${selectedDateStr.split('-')[1]}`;
-            const isHoliday = VIETNAM_HOLIDAYS.includes(monthDayStr);
-
-            if(isChunhat || isHoliday) {
-                totalHours = totalHours * 2;
-            }
-
-            let totalCong = totalHours / 8;
+            // NHÂN THEO HỆ SỐ ĐÃ CHỌN (X1, X2, X3, X4)
+            const multiplier = getSelectedMultiplier();
+            const totalHours = baseHours * multiplier;
+            const totalCong = totalHours / 8;
 
             document.getElementById('day-cong-result').innerText = `${totalCong.toFixed(2)} công`;
             document.getElementById('day-gio-result').innerText = `${totalHours.toFixed(2)} giờ`;
@@ -611,27 +580,22 @@
             return { cong: totalCong, gio: totalHours };
         }
 
-        function updateDayData(inputElement) {
+        function updateDayData() {
             if(!selectedDateStr) return;
-
-            if(inputElement && inputElement.type === 'number') {
-                let currentVal = parseInt(inputElement.value) || 0;
-                if(currentVal > 0) {
-                    inputElement.value = Math.floor(currentVal / 30) * 30;
-                }
-            }
 
             const sang = document.getElementById('ca-sang').checked;
             const chieu = document.getElementById('ca-chieu').checked;
             const sangMins = parseInt(document.getElementById('ca-sang-mins').value) || 0;
             const trua = parseInt(document.getElementById('ca-trua').value) || 0;
             const toi = parseInt(document.getElementById('ca-toi').value) || 0;
+            const multiplier = getSelectedMultiplier();
 
-            dbData[selectedDateStr] = { sang, chieu, sangMins, trua, toi };
+            dbData[selectedDateStr] = { sang, chieu, sangMins, trua, toi, multiplier };
             localStorage.setItem('db_cham_cong', JSON.stringify(dbData));
 
             const parts = selectedDateStr.split('-');
             renderCalendar(parseInt(parts[0]), parseInt(parts[1]));
+            calculateDayTotals();
             calculateThangTotals(parseInt(parts[0]), parseInt(parts[1]));
         }
 
@@ -642,22 +606,16 @@
                 const parts = dateKey.split('-');
                 if(parseInt(parts[0]) === year && parseInt(parts[1]) === month) {
                     const dayData = dbData[dateKey];
-                    let dayHours = 0;
+                    let baseHours = 0;
 
-                    if(dayData.sang) dayHours += 4;
-                    if(dayData.chieu) dayHours += 4;
-                    if(dayData.sangMins) dayHours += (dayData.sangMins / 60);
-                    dayHours += (dayData.trua / 60);
-                    dayHours += (dayData.toi / 60);
+                    if(dayData.sang) baseHours += 4;
+                    if(dayData.chieu) baseHours += 4;
+                    if(dayData.sangMins) baseHours += (dayData.sangMins / 60);
+                    dayHours = baseHours + (dayData.trua / 60) + (dayData.toi / 60);
 
-                    const dateObj = new Date(dateKey);
-                    const isChunhat = (dateObj.getDay() === 0);
-                    const monthDayStr = `${parts[2]}-${parts[1]}`;
-                    const isHoliday = VIETNAM_HOLIDAYS.includes(monthDayStr);
-
-                    if(isChunhat || isHoliday) dayHours = dayHours * 2;
-
-                    totalGioThang += dayHours;
+                    // TÍNH TOÁN THEO HỆ SỐ RIÊNG CỦA TỪNG NGÀY ĐÃ LƯU
+                    const mult = dayData.multiplier || 1;
+                    totalGioThang += (dayHours * mult);
                 }
             }
 
@@ -666,12 +624,15 @@
             document.getElementById('total-cong-thang').innerText = totalCongThang.toFixed(2);
             document.getElementById('total-gio-thang').innerText = totalGioThang.toFixed(2);
 
+            // TỰ ĐỘNG TÍNH SỐ CÔNG CHUẨN TRONG THÁNG (26 HOẶC 27 NGÀY CÔNG)
+            const ngayCongChuan = getStandardWorkingDays(year, month);
+            document.getElementById('chuan-cong-label').innerText = `Chuẩn: ${ngayCongChuan}c`;
+
             const luongCoBanStr = document.getElementById('luong-co-ban').value.replace(/\./g, "") || "0";
             const luongCoBan = parseInt(luongCoBanStr, 10);
             
-            const ngayCongChuan = 26;
+            // TỔNG LƯƠNG TÍNH THEO SỐ CÔNG CHUẨN TỰ ĐỘNG CỦA THÁNG
             const tongLuongThang = (luongCoBan / ngayCongChuan) * totalCongThang;
-            
             document.getElementById('total-luong-thang').innerText = `${Math.round(tongLuongThang).toLocaleString('vi-VN')} VNĐ`;
 
             const bhxhStr = document.getElementById('khau-tru-bhxh').value.replace(/\./g, "") || "0";
@@ -686,7 +647,6 @@
             if(value) value = parseInt(value, 10).toLocaleString('vi-VN');
             input.value = value;
             localStorage.setItem('luong_cb', value);
-
             calculateThangTotals(viewingYear, viewingMonth);
         }
 
@@ -696,7 +656,6 @@
             else value = "0";
             input.value = value;
             localStorage.setItem('bhxh_kt', value);
-
             calculateThangTotals(viewingYear, viewingMonth);
         }
     </script>
